@@ -1,8 +1,10 @@
 package com.md.doctor.models;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Getter
@@ -17,7 +19,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank
     private String username;
+    @NotBlank
+    @Length(min = 6)
     private String password;
     private boolean accountNonExpired;
     private boolean accountNonLocked;

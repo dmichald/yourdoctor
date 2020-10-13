@@ -17,14 +17,14 @@ import java.util.Set;
 public class Office {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String email;
+    private Long id;
+
     @OneToOne
-    Doctor doctor;
+    private Doctor doctor;
     @OneToOne
-    Contact contact;
+    private Contact contact;
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER, mappedBy = "office")
-    Set<Reservation> reservations = new HashSet<>();
+    private Set<Reservation> reservations = new HashSet<>();
     @OneToOne
-    User owner;
+    private User owner;
 }

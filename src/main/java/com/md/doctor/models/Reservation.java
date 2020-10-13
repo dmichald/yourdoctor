@@ -18,17 +18,16 @@ import java.time.LocalTime;
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Office office;
 
     @OneToOne
-    Patient patient;
-    LocalDate date;
-    LocalTime startTime;
-    LocalTime endTime;
-
+    private Patient patient;
+    private LocalDate date;
+    private LocalTime startTime;
+    private LocalTime endTime;
     @CreationTimestamp
-    LocalDate createdAt;
+    private LocalDate createdAt;
 }

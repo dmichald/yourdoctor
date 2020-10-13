@@ -17,10 +17,10 @@ import java.util.Set;
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String name;
-    String surname;
+    private Long id;
+    private String name;
+    private String surname;
     @OneToMany(mappedBy = "doctor")
-    Set<Specialization> specializationSet = new HashSet<>();
+    private Set<Specialization> specializationSet = new HashSet<>();
 
 }

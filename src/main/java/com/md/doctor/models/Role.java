@@ -3,6 +3,7 @@ package com.md.doctor.models;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Setter
@@ -17,6 +18,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @NotBlank
     private String name;
 
     @ManyToMany(mappedBy = "roles")

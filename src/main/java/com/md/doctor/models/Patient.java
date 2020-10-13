@@ -15,12 +15,12 @@ import javax.persistence.*;
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String email;
-    String telephoneNumber;
+    private Long id;
+    private String email;
+    private String telephoneNumber;
     @OneToOne
-    Address address;
+    private Address address;
     @OneToOne(mappedBy = "patient")
-    Reservation reservation;
+    private Reservation reservation;
 
 }

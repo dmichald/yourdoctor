@@ -15,12 +15,11 @@ import javax.persistence.*;
 public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
+
     @OneToOne
-    Address address;
-    String name;
-    String surname;
-    String telephoneNumber;
-    String email;
+    private Address address;
+    private String telephoneNumber;
+    private String email;
 
 }

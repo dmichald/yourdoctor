@@ -3,6 +3,7 @@ package com.md.doctor.models;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Setter
@@ -14,9 +15,13 @@ import javax.persistence.*;
 public class Specialization {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String name;
+    private Long id;
+
+    @NotBlank
+    @Column(unique = true)
+    private String name;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DOCTOR_ID")
-    Doctor doctor;
+    private Doctor doctor;
 }

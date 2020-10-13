@@ -18,10 +18,10 @@ import javax.persistence.Id;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String name;
-    String surname;
-    String street;
-    String code;
-    String city;
+    private Long id;
+    private String name;
+    private String surname;
+    private String street;
+    private String code;
+    private String city;
 }
