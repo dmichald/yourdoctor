@@ -1,8 +1,6 @@
 package com.md.doctor.models;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -10,12 +8,15 @@ import javax.persistence.*;
 @Setter
 @Getter
 @NoArgsConstructor
-class Specialization {
+@EqualsAndHashCode
+@AllArgsConstructor
+@Builder
+public class Specialization {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String name;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "DOCTOR_ID", nullable = false)
+    @JoinColumn(name = "DOCTOR_ID")
     Doctor doctor;
 }

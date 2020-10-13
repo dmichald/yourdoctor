@@ -11,7 +11,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
- class Role {
+@EqualsAndHashCode
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;

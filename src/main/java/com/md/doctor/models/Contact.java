@@ -1,5 +1,6 @@
 package com.md.doctor.models;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +11,8 @@ import javax.persistence.*;
 @Setter
 @Getter
 @NoArgsConstructor
- class Contact {
+@EqualsAndHashCode
+public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

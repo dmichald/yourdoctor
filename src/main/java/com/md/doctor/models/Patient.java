@@ -1,5 +1,6 @@
 package com.md.doctor.models;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,8 +11,8 @@ import javax.persistence.*;
 @Setter
 @Getter
 @NoArgsConstructor
-@Table(name = "patient")
-class Patient{
+@EqualsAndHashCode
+public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

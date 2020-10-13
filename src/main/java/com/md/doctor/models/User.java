@@ -1,12 +1,8 @@
 package com.md.doctor.models;
 
 import lombok.*;
-import org.springframework.security.core.CredentialsContainer;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Set;
 
 @Getter
@@ -14,7 +10,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
- class User {
+@EqualsAndHashCode
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

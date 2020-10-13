@@ -1,5 +1,6 @@
 package com.md.doctor.models;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +13,8 @@ import java.util.Set;
 @Setter
 @Getter
 @NoArgsConstructor
- class Doctor {
+@EqualsAndHashCode
+public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
