@@ -1,6 +1,7 @@
 package com.md.doctor.dto;
 
-import com.md.doctor.models.User;
+import com.md.doctor.dto.doctordto.GetDoctorDto;
+import com.md.doctor.models.security.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ class OfficeDto {
     private Long id;
 
     @NotNull
-    private DoctorDto doctor;
+    private GetDoctorDto doctor;
     @NotNull
     private ContactDto contact;
     @NotNull

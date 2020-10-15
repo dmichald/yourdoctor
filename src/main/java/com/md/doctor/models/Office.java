@@ -1,5 +1,6 @@
 package com.md.doctor.models;
 
+import com.md.doctor.models.security.User;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

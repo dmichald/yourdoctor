@@ -1,5 +1,6 @@
-package com.md.doctor.dto;
+package com.md.doctor.dto.doctordto;
 
+import com.md.doctor.dto.SpecializationDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,13 +11,12 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-class DoctorDto {
-    private Long id;
-
+public class AddDoctorDto {
     @NotBlank
     @NotNull
     private String name;

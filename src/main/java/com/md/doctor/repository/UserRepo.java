@@ -1,6 +1,6 @@
 package com.md.doctor.repository;
 
-import com.md.doctor.models.User;
+import com.md.doctor.models.security.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

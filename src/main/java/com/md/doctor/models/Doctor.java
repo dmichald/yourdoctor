@@ -1,9 +1,6 @@
 package com.md.doctor.models;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -14,13 +11,19 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @EqualsAndHashCode
+@AllArgsConstructor
+
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String surname;
-    @OneToMany(mappedBy = "doctor")
-    private Set<Specialization> specializationSet = new HashSet<>();
+
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @JoinTable(name = "doctor_specialization",
+            joinColumns = {@JoinColumn(name = "DOCTOR_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "SPECIALIZATION_ID", referencedColumnName = "ID")})
+    private Set<Specialization> specializations = new HashSet<>();
 
 }

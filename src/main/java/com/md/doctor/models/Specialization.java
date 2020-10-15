@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -21,7 +22,6 @@ public class Specialization {
     @Column(unique = true)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "DOCTOR_ID")
-    private Doctor doctor;
+    @ManyToMany(mappedBy = "specializations")
+    private Set<Doctor> doctors;
 }

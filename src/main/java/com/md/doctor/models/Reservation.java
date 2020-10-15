@@ -8,7 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.Date;
 
 @Entity
 @Setter
@@ -25,9 +25,15 @@ public class Reservation {
 
     @OneToOne
     private Patient patient;
-    private LocalDate date;
-    private LocalTime startTime;
-    private LocalTime endTime;
+
+    @Temporal(TemporalType.DATE)
+    private Date date;
+
+    @Temporal(TemporalType.TIME)
+    private Date startTime;
+
+    @Temporal(TemporalType.TIME)
+    private Date endTime;
     @CreationTimestamp
     private LocalDate createdAt;
 }

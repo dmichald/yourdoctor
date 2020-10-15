@@ -49,4 +49,20 @@ class SpecializationRepoIntegrationTest {
         assertEquals(fromDb.getName(), EXPECTED_SPECIALIZATION_NAME);
 
     }
+
+    @Test
+    @DisplayName("correct remove entity by given id")
+    void deleteEntity() {
+        //given
+        Long toRemove = 1L;
+        long expectedAmount = specializationRepo.count() - 1;
+
+
+        //when
+        specializationRepo.deleteById(toRemove);
+
+        //then
+        assertEquals(specializationRepo.count(), expectedAmount);
+
+    }
 }

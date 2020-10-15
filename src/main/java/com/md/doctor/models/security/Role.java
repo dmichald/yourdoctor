@@ -1,4 +1,4 @@
-package com.md.doctor.models;
+package com.md.doctor.models.security;
 
 import lombok.*;
 
