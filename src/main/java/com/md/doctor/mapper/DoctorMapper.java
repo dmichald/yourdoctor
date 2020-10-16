@@ -1,6 +1,7 @@
 package com.md.doctor.mapper;
 
 import com.md.doctor.dto.doctordto.AddDoctorDto;
+
 import com.md.doctor.dto.doctordto.GetDoctorDto;
 import com.md.doctor.models.Doctor;
 import org.mapstruct.Mapper;
@@ -16,7 +17,7 @@ public interface DoctorMapper {
 
     GetDoctorDto mapToGetDoctorDto(Doctor doctor);
 
-    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "id" ,ignore = true)
     Doctor mapAddDoctorDtoToDoctor(AddDoctorDto doctorDto);
 
 }

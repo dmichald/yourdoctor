@@ -37,7 +37,7 @@ class DoctorMapperTest {
         );
     }
 
-    @Test
+/*    @Test
     @DisplayName("correct map AddDoctorDto to Doctor")
     void mapAddDoctorDtotoDoctor() {
 
@@ -54,5 +54,5 @@ class DoctorMapperTest {
                 () -> assertEquals(Collections.emptySet(), doctor.getSpecializations())
         );
 
-    }
+    }*/
 }
