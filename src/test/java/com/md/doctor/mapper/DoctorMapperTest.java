@@ -6,6 +6,7 @@ import com.md.doctor.dto.GetDoctorDto;
 import com.md.doctor.models.Doctor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mapstruct.factory.Mappers;
 
 import java.util.Collections;
 
@@ -17,7 +18,7 @@ class DoctorMapperTest {
     private static final Long ID = 1L;
     private static final String NAME = "Jan";
     private static final String SURNAME = "Kowal";
-    private final DoctorMapper doctorMapper = DoctorMapper.INSTANCE;
+    private final DoctorMapper doctorMapper = Mappers.getMapper(DoctorMapper.class);
 
 
     @Test

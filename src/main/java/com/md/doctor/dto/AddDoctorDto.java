@@ -18,6 +18,7 @@ import java.util.Set;
 public class AddDoctorDto {
     @NotBlank
     @NotNull
+
     private String name;
 
     @NotBlank

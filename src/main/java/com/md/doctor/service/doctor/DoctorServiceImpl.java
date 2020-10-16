@@ -8,6 +8,7 @@ import com.md.doctor.mapper.DoctorMapper;
 import com.md.doctor.models.Doctor;
 import com.md.doctor.repository.DoctorRepo;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     private static String ENTITY_NOT_FOUND = "ENTITY WITH GIVEN ID NOT EXIST. ID: ";
     private final DoctorRepo doctorRepository;
-    private DoctorMapper doctorMapper = DoctorMapper.INSTANCE;
+    private DoctorMapper doctorMapper = Mappers.getMapper(DoctorMapper.class);
 
     @Override
     public GetDoctorDto getDoctorById(Long id) {
