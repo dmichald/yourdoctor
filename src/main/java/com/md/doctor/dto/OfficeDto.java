@@ -1,6 +1,6 @@
 package com.md.doctor.dto;
 
-import com.md.doctor.dto.doctordto.GetDoctorDto;
+
 import com.md.doctor.models.security.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

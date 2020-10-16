@@ -1,7 +1,8 @@
 package com.md.doctor.service.doctor;
 
-import com.md.doctor.dto.doctordto.AddDoctorDto;
-import com.md.doctor.dto.doctordto.GetDoctorDto;
+import com.md.doctor.dto.AddDoctorDto;
+import com.md.doctor.dto.GetDoctorDto;
+
 import com.md.doctor.exception.EntityNotFoundException;
 import com.md.doctor.mapper.DoctorMapper;
 import com.md.doctor.models.Doctor;

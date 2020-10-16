@@ -1,7 +1,7 @@
 package com.md.doctor.service.doctor;
 
-import com.md.doctor.dto.doctordto.AddDoctorDto;
-import com.md.doctor.dto.doctordto.GetDoctorDto;
+import com.md.doctor.dto.AddDoctorDto;
+import com.md.doctor.dto.GetDoctorDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

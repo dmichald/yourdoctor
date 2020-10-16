@@ -1,7 +1,8 @@
 package com.md.doctor.mapper;
 
-import com.md.doctor.dto.doctordto.AddDoctorDto;
-import com.md.doctor.dto.doctordto.GetDoctorDto;
+
+import com.md.doctor.dto.AddDoctorDto;
+import com.md.doctor.dto.GetDoctorDto;
 import com.md.doctor.models.Doctor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ class DoctorMapperTest {
         );
     }
 
-/*    @Test
+    @Test
     @DisplayName("correct map AddDoctorDto to Doctor")
     void mapAddDoctorDtotoDoctor() {
 
@@ -54,5 +55,5 @@ class DoctorMapperTest {
                 () -> assertEquals(Collections.emptySet(), doctor.getSpecializations())
         );
 
-    }*/
+    }
 }
