@@ -5,6 +5,7 @@ import com.md.doctor.dto.GetDoctorDto;
 import com.md.doctor.exception.EntityNotFoundException;
 import com.md.doctor.models.Doctor;
 import com.md.doctor.repository.DoctorRepo;
+import com.md.doctor.repository.SpecializationRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,13 +41,16 @@ class DoctorServiceImplTest {
     @Mock
     private DoctorRepo doctorRepository;
 
+    @Mock
+    private SpecializationRepo specializationRepo;
+
     private DoctorServiceImpl doctorService;
 
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        doctorService = new DoctorServiceImpl(doctorRepository);
+        doctorService = new DoctorServiceImpl(doctorRepository,specializationRepo);
     }
 
     @Test

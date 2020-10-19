@@ -13,7 +13,7 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 @Getter
 @Setter
-class ContactDto {
+ public class ContactDto {
     private Long id;
     @NotNull
     @OneToOne

@@ -7,10 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
-import java.util.Optional;
-
 public interface DoctorRepo extends PagingAndSortingRepository<Doctor, Long> {
-    Optional<Doctor> findByNameAndSurname(String name, String surname);
+
 
     @Query("SELECT  d FROM Doctor d JOIN d.specializations s WHERE s.id = :categoryId")
     Page<Doctor> findBySpecializationId(@Param("categoryId") Long categoryId, Pageable pageable);

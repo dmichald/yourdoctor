@@ -1,10 +1,7 @@
 package com.md.doctor.models;
 
 import com.md.doctor.models.security.User;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -15,6 +12,7 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @EqualsAndHashCode
+@AllArgsConstructor
 public class Office {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

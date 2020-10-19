@@ -7,14 +7,15 @@ import lombok.Setter;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.FutureOrPresent;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.sql.Date;
+import java.sql.Time;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-class ReservationDto {
+ public class ReservationDto {
 
     private Long id;
 
@@ -22,12 +23,14 @@ class ReservationDto {
     private PatientDto patient;
 
     @FutureOrPresent
-    private LocalDate date;
+    private Date date;
 
     @FutureOrPresent
-    private LocalTime startTime;
+    private Time startTime;
 
     @Future
-    private LocalTime endTime;
+    private Time endTime;
+
+    private boolean canceled;
 
 }

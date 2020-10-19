@@ -1,14 +1,16 @@
 package com.md.doctor.models;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @NoArgsConstructor
-@EqualsAndHashCode
+
 @AllArgsConstructor
 
 public class Doctor {
@@ -23,6 +25,31 @@ public class Doctor {
             joinColumns = {@JoinColumn(name = "DOCTOR_ID", referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "SPECIALIZATION_ID", referencedColumnName = "ID")})
     private Set<Specialization> specializations = new HashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Doctor doctor = (Doctor) o;
+        return id.equals(doctor.id) &&
+                name.equals(doctor.name) &&
+                surname.equals(doctor.surname);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, surname);
+    }
+
+    public void addSpecialization(Specialization specialization) {
+        specializations.add(specialization);
+        specialization.getDoctors().add(this);
+    }
+
+    public void removeSpecialization(Specialization specialization) {
+        specializations.remove(specialization);
+        specialization.getDoctors().remove(this);
+    }
 
     public Long getId() {
         return id;

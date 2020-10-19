@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Getter
 @Setter
-class PatientDto {
+public class PatientDto {
     private Long id;
     private String email;
     private String telephoneNumber;

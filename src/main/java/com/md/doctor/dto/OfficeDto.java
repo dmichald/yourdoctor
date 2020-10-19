@@ -15,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-class OfficeDto {
+public class OfficeDto {
     private Long id;
 
     @NotNull

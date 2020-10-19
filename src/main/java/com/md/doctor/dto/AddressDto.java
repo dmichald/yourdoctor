@@ -13,7 +13,7 @@ import javax.validation.constraints.Pattern;
 @AllArgsConstructor
 @Getter
 @Setter
-class AddressDto {
+ public class AddressDto {
 
     private Long id;
     @NotBlank

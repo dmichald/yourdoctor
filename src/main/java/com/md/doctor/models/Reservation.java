@@ -1,20 +1,19 @@
 package com.md.doctor.models;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Time;
+
 
 @Entity
 @Setter
 @Getter
 @NoArgsConstructor
 @EqualsAndHashCode
+@AllArgsConstructor
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,14 +25,30 @@ public class Reservation {
     @OneToOne
     private Patient patient;
 
-    @Temporal(TemporalType.DATE)
     private Date date;
 
-    @Temporal(TemporalType.TIME)
-    private Date startTime;
+    private Time startTime;
 
-    @Temporal(TemporalType.TIME)
-    private Date endTime;
+    private Time endTime;
+
     @CreationTimestamp
-    private LocalDate createdAt;
+    private Date createdAt;
+
+    private boolean canceled;
+
+    public void addPatient(Patient patient) {
+        if (patient != null) {
+            this.patient = patient;
+            patient.setReservation(this);
+        }
+    }
+
+    public void addOffice(Office office) {
+        if (office != null) {
+            this.office = office;
+            if (office.getReservations() != null) {
+                office.getReservations().add(this);
+            }
+        }
+    }
 }
