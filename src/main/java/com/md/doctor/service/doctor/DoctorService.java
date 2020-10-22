@@ -2,6 +2,7 @@ package com.md.doctor.service.doctor;
 
 import com.md.doctor.dto.AddDoctorDto;
 import com.md.doctor.dto.GetDoctorDto;
+import com.md.doctor.models.Doctor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,5 @@ public interface DoctorService {
 
     Page<GetDoctorDto> getDoctorByNameOrSurname(String name, String surname, Pageable pageable);
 
-    void saveDoctor(AddDoctorDto doctorDto);
-
-
+    Doctor saveDoctor(AddDoctorDto doctorDto);
 }

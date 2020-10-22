@@ -16,4 +16,8 @@ public interface DoctorMapper {
 
     Doctor mapAddDoctorDtoToDoctor(AddDoctorDto doctorDto);
 
+    AddDoctorDto mapToAddDoctorDto(GetDoctorDto getDoctorDto);
+
+    Doctor mapToDoctor(GetDoctorDto getDoctorDto);
+
 }

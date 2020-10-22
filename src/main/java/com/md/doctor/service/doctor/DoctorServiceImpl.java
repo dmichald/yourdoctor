@@ -48,14 +48,13 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     @Transactional
-    public void saveDoctor(AddDoctorDto doctorDto) {
+    public Doctor saveDoctor(AddDoctorDto doctorDto) {
         Doctor doctor = new Doctor();
         doctor.setName(doctorDto.getName());
         doctor.setSurname(doctorDto.getSurname());
 
         addSpecializations(doctorDto, doctor);
-        doctorRepository.save(doctor);
-
+        return doctorRepository.save(doctor);
     }
 
 
