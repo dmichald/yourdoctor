@@ -1,23 +1,16 @@
 package com.md.doctor.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
  public class ContactDto {
     private Long id;
-    @NotNull
-    @OneToOne
-    private AddressDto address;
 
     @Pattern(regexp = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s./0-9]*$")
     private String telephoneNumber;

@@ -10,7 +10,6 @@ import java.util.Set;
 
 @Entity
 @NoArgsConstructor
-
 @AllArgsConstructor
 
 public class Doctor {

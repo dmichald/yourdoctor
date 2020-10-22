@@ -33,16 +33,16 @@ public class TestResource {
 
     public static final Page<GetDoctorDto> EXPECTED_PAGE = new PageImpl<>(Collections.singletonList(DOCTOR_DTO), PAGEABLE, 3);
     public static final Patient PATIENT = new Patient(ID, EMAIL, TEL_NUMBER, ADDRESS, new Reservation());
-    public static final Contact CONTACT = new Contact(ID, ADDRESS, TEL_NUMBER, EMAIL);
+    public static final Contact CONTACT = new Contact(ID, TEL_NUMBER, EMAIL);
     public static final Date DATE = Date.valueOf("2022-01-01");
     public static final Time START_TIME = Time.valueOf("09:30:00");
     public static final Time END_TIME = Time.valueOf("09:45:00");
 
 
     public static final AddressDto ADDRESS_DTO = new AddressDto(ID, NAME, SURNAME, STREET, CODE, CITY);
-    public static final ContactDto CONTACT_DTO = new ContactDto(ID, ADDRESS_DTO, TEL_NUMBER, EMAIL);
-    public static final OfficeDto OFFICE_DTO = new OfficeDto(ID, DOCTOR_DTO, CONTACT_DTO, null, new User());
-    public static final Office OFFICE = new Office(ID, DOCTOR, CONTACT, null, new User());
+    public static final ContactDto CONTACT_DTO = new ContactDto(ID, TEL_NUMBER, EMAIL);
+    public static final OfficeDto OFFICE_DTO = new OfficeDto(ID, DOCTOR_DTO, CONTACT_DTO,ADDRESS_DTO, null, new User());
+    public static final Office OFFICE = new Office(ID, DOCTOR, CONTACT,ADDRESS, null, new User());
     public static final Reservation RESERVATION = new Reservation(ID, OFFICE, PATIENT, DATE, START_TIME, END_TIME, DATE, false);
     public static final ReservationDto RESERVATION_DTO = new ReservationDto(ID, OFFICE_DTO, new PatientDto(), DATE, START_TIME, END_TIME, false);
 

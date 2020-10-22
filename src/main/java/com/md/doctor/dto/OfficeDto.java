@@ -23,6 +23,8 @@ public class OfficeDto {
     @NotNull
     private ContactDto contact;
     @NotNull
+    AddressDto address;
+    @NotNull
     private Set<ReservationDto> reservations = new HashSet<>();
     private User owner;
 }

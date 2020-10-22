@@ -22,6 +22,8 @@ public class Office {
     private Doctor doctor;
     @OneToOne
     private Contact contact;
+    @OneToOne
+    private Address address;
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER, mappedBy = "office")
     private Set<Reservation> reservations = new HashSet<>();
     @OneToOne
