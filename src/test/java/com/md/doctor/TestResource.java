@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Collections;
+import java.util.UUID;
 
 
 public class TestResource {
@@ -45,6 +46,8 @@ public class TestResource {
     public static final Office OFFICE = new Office(ID, DOCTOR, CONTACT,ADDRESS, null, new User());
     public static final Reservation RESERVATION = new Reservation(ID, OFFICE, PATIENT, DATE, START_TIME, END_TIME, DATE, false);
     public static final ReservationDto RESERVATION_DTO = new ReservationDto(ID, OFFICE_DTO, new PatientDto(), DATE, START_TIME, END_TIME, false);
+    public static final User USER = new User();
+    public static final String TOKEN = UUID.randomUUID().toString();
 
 
 }
