@@ -19,6 +19,7 @@ import java.util.Set;
 @Builder
 @Entity
 @EqualsAndHashCode
+@Table(name = "USERS")
 public class User implements UserDetails {
 
     @Id
@@ -31,20 +32,21 @@ public class User implements UserDetails {
     @NotBlank
     @Length(min = 6)
     private String password;
-    private boolean accountNonExpired;
-    private boolean accountNonLocked;
-    private boolean credentialsIsNonExpired;
+    @Builder.Default
+    private boolean accountNonExpired = true;
+    @Builder.Default
+    private boolean accountNonLocked = true;
+    @Builder.Default
+    private boolean credentialsIsNonExpired = true;
     @Builder.Default
     private boolean enabled = false;
 
 
-
-    @Singular
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
             inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")})
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -57,8 +59,15 @@ public class User implements UserDetails {
         return authorities;
     }
 
+    public void addRole(Role role) {
+        roles.add(role);
+        role.getUsers().add(this);
+    }
+
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 }
+
+

@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -23,7 +24,7 @@ public class Specialization {
     private String name;
 
     @ManyToMany(mappedBy = "specializations" , cascade = CascadeType.REMOVE)
-    private Set<Doctor> doctors;
+    private Set<Doctor> doctors = new HashSet<>();
 
 
     @Override
