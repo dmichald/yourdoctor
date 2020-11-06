@@ -4,6 +4,7 @@ import com.md.doctor.models.Specialization;
 import com.md.doctor.repository.SpecializationRepo;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -20,6 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@DisplayName("SpecializationController should")
 class SpecializationControllerTest {
     @Mock
     private SpecializationRepo repository;
@@ -37,6 +39,7 @@ class SpecializationControllerTest {
     }
 
     @Test
+    @DisplayName("return all specializations")
     void whenGetRequest_ShouldReturnListOfSpecializations() throws Exception {
         //given
         List<Specialization> list = Lists.newArrayList(

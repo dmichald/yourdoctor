@@ -1,18 +1,21 @@
 package com.md.doctor.models;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.Objects;
 
 
 @Entity
 @Setter
 @Getter
 @NoArgsConstructor
-@EqualsAndHashCode
 @AllArgsConstructor
 public class Reservation {
     @Id
@@ -50,5 +53,25 @@ public class Reservation {
                 office.getReservations().add(this);
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reservation that = (Reservation) o;
+        return canceled == that.canceled &&
+                Objects.equals(id, that.id) &&
+                Objects.equals(office, that.office) &&
+                Objects.equals(patient, that.patient) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(startTime, that.startTime) &&
+                Objects.equals(endTime, that.endTime) &&
+                Objects.equals(createdAt, that.createdAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, startTime, endTime, createdAt, canceled);
     }
 }

@@ -6,8 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Set;
-
 public interface OfficeRepo extends JpaRepository<Office, Long> {
-    Page<Office> findAllByDoctor_Specializations_Id(Specialization specialization, Pageable pageable);
+    Page<Office> findAllByDoctor_Specializations(Specialization specialization, Pageable pageable);
 }

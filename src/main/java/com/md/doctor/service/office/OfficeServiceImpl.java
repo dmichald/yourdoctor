@@ -1,5 +1,6 @@
 package com.md.doctor.service.office;
 
+import com.md.doctor.dto.GetOfficeDto;
 import com.md.doctor.dto.OfficeDto;
 import com.md.doctor.exception.EntityNotFoundException;
 import com.md.doctor.mapper.AddressMapper;
@@ -55,11 +56,16 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
-    public Page<OfficeDto> getOfficesByDoctorSpecializationId(Long specializationId, Pageable pageable) {
+    public Page<GetOfficeDto> getOfficesByDoctorSpecializationId(Long specializationId, Pageable pageable) {
         Specialization specialization = specializationRepo.findById(specializationId)
                 .orElseThrow(() -> new EntityNotFoundException("SPECIALIZATION WITH GIVEN ID NOT EXIST. ID: " + specializationId));
 
-        return officeRepository.findAllByDoctor_Specializations_Id(specialization, pageable)
-                .map(office -> officeMapper.mapToOfficeDto(office));
+
+        return officeRepository.findAllByDoctor_Specializations(specialization, pageable)
+                .map(office ->
+                        GetOfficeDto.builder().id(office.getId())
+                                .name(office.getDoctor().getName() + " " + office.getDoctor().getSurname())
+                                .specializationName(specialization.getName())
+                                .build());
     }
 }

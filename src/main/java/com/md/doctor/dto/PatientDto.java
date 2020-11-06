@@ -17,6 +17,4 @@ public class PatientDto {
     private String telephoneNumber;
     @NotNull
     private AddressDto address;
-    @NotNull
-    private ReservationDto reservation;
 }

@@ -18,8 +18,6 @@ import java.sql.Time;
  public class ReservationDto {
 
     private Long id;
-
-    private OfficeDto office;
     private PatientDto patient;
 
     @FutureOrPresent

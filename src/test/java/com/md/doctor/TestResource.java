@@ -16,6 +16,8 @@ import java.util.UUID;
 
 public class TestResource {
     public static final Pageable PAGEABLE = PageRequest.of(0, 5);
+    public static final String USERNAME = "Username";
+    public static final String PASSWORD = "Password";
     public static final Long ID = 1L;
     public static final String NAME = "Jan";
     public static final String SURNAME = "Kowal";
@@ -45,7 +47,7 @@ public class TestResource {
     public static final OfficeDto OFFICE_DTO = new OfficeDto(ID, DOCTOR_DTO, CONTACT_DTO,ADDRESS_DTO, null, new User());
     public static final Office OFFICE = new Office(ID, DOCTOR, CONTACT,ADDRESS, null, new User());
     public static final Reservation RESERVATION = new Reservation(ID, OFFICE, PATIENT, DATE, START_TIME, END_TIME, DATE, false);
-    public static final ReservationDto RESERVATION_DTO = new ReservationDto(ID, OFFICE_DTO, new PatientDto(), DATE, START_TIME, END_TIME, false);
+    public static final ReservationDto RESERVATION_DTO = new ReservationDto(ID, new PatientDto(), DATE, START_TIME, END_TIME, false);
     public static final User USER = new User();
     public static final String TOKEN = UUID.randomUUID().toString();
 

@@ -15,6 +15,7 @@ import javax.validation.constraints.Email;
 public class RegistrationController {
     private final UserService userService;
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/register")
     void registerNewUserAccount(@RequestBody UserDto userDto) {
         userService.registerNewUserAccount(userDto);

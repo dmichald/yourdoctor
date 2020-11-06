@@ -47,7 +47,7 @@ class ReservationServiceImplTest {
 
         //when
         when(officeRepository.findById(ID)).thenReturn(Optional.of(OFFICE));
-        reservationService.saveReservation(RESERVATION_DTO);
+        reservationService.saveReservation(RESERVATION_DTO, ID);
 
         //then
         verify(reservationRepository, times(1)).save(any());

@@ -14,6 +14,10 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.util.List;
+
 @Service
 public class ReservationServiceImpl implements ReservationService {
     private final ReservationRepo reservationRepository;
@@ -32,23 +36,21 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Transactional
     @Override
-    public void saveReservation(ReservationDto reservationDto) {
+    public void saveReservation(ReservationDto reservationDto, Long officeId) {
         Patient patient = patientRepository.save(patientMapper.mapToPatient(reservationDto.getPatient()));
-
-        Office office = officeRepository.findById(reservationDto.getOffice().getId())
-                .orElseThrow(() -> new EntityNotFoundException("OFFICE WITH GIVEN ID NOT EXIST. ID: " + reservationDto.getOffice().getId()));
-
+        Office office = officeRepository.findById(officeId).orElseThrow(() -> new EntityNotFoundException("OFFICE NOT FOUND"));
         Reservation reservation = new Reservation();
         reservation.setDate(reservationDto.getDate());
         reservation.setStartTime(reservationDto.getStartTime());
         reservation.setEndTime(reservationDto.getEndTime());
+        reservation.addOffice(office);
         reservation.setCanceled(false);
 
-        reservation.addOffice(office);
         reservation.addPatient(patient);
 
         reservationRepository.save(reservation);
     }
+
 
     @Override
     public ReservationDto getReservationById(Long id) {
@@ -64,5 +66,15 @@ public class ReservationServiceImpl implements ReservationService {
                 findById(reservationId).orElseThrow(() -> new EntityNotFoundException("RESERVATION WITH GIVEN ID NOT EXIST. ID: " + reservationId));
 
         reservation.setCanceled(true);
+    }
+
+    @Override
+    public List<ReservationDto> getReservationByDayAndDoctor(Date date, Office office) {
+        return null;
+    }
+
+    @Override
+    public ReservationDto getReservationByDateAndStartTimeAndEndTime(Date date, Time startTime, Time endTime) {
+        return null;
     }
 }
