@@ -6,11 +6,14 @@ import com.md.doctor.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 
 @RestController
+@Validated
 @RequiredArgsConstructor
 public class RegistrationController {
     private final UserService userService;
@@ -33,12 +36,12 @@ public class RegistrationController {
     }
 
     @GetMapping("/reset-password")
-    void resetPassword(@RequestParam @Email String email) {
+    void resetPassword(@Valid @RequestParam @Email String email) {
         userService.sendResetPasswordToken(email);
     }
 
     @PostMapping("/reset-password")
-    void resetPassword(@RequestBody ResetPasswordDto resetPasswordDto) {
+    void resetPassword(@Valid @RequestBody ResetPasswordDto resetPasswordDto) {
         userService.changeUserPassword(resetPasswordDto);
     }
 }

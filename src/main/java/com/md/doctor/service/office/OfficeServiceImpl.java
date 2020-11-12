@@ -22,6 +22,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class OfficeServiceImpl implements OfficeService {
@@ -67,5 +69,10 @@ public class OfficeServiceImpl implements OfficeService {
                                 .name(office.getDoctor().getName() + " " + office.getDoctor().getSurname())
                                 .specializationName(specialization.getName())
                                 .build());
+    }
+
+    @Override
+    public List<String> getCities() {
+        return officeRepository.getCities();
     }
 }

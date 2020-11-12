@@ -46,7 +46,6 @@ public class Bootstrap implements CommandLineRunner {
         for (int i = 0; i < 50; i++) {
             addToDb(i);
         }
-
     }
 
     private void addToDb(int i) {
@@ -69,7 +68,7 @@ public class Bootstrap implements CommandLineRunner {
         Address patientAddr = new Address();
         patientAddr.setName("Patient");
         patientAddr.setSurname("Sick");
-        patientAddr.setCity("Kraków");
+        patientAddr.setCity("PATIENT CITY");
         patientAddr.setStreet("ul. Nowa 32");
         patientAddr.setCode("33-302");
         Address savedPatientAddr = addressRepo.save(patientAddr);

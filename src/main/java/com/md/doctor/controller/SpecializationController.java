@@ -20,7 +20,6 @@ public class SpecializationController {
 
 
     @GetMapping
-    @ResponseBody
     public SpecializationListDto getAllSpecializations() {
         List<SpecializationDto> specializations = repository.findAll().stream()
                 .map(SpecializationDto::new)

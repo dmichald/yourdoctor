@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/", "/webjars/**", "/resources/**", "/register", "/confirm", "/login").permitAll()
-                .antMatchers("/specializations", "/offices/**").permitAll()
+                .antMatchers("/specializations", "/offices/**","/reset-password").permitAll()
                 .antMatchers("/doctors/**").hasRole("DOCTOR")
                 .anyRequest()
                 .authenticated();

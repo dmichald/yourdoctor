@@ -55,6 +55,7 @@ class RegistrationControllerTest {
 
     @Test
     void confirmAccount() {
+
     }
 
     @Test
