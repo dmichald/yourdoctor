@@ -40,9 +40,9 @@ public class ReservationServiceImpl implements ReservationService {
         Patient patient = patientRepository.save(patientMapper.mapToPatient(reservationDto.getPatient()));
         Office office = officeRepository.findById(officeId).orElseThrow(() -> new EntityNotFoundException("OFFICE NOT FOUND"));
         Reservation reservation = new Reservation();
-        reservation.setDate(reservationDto.getDate());
-        reservation.setStartTime(reservationDto.getStartTime());
-        reservation.setEndTime(reservationDto.getEndTime());
+        reservation.setDate(Date.valueOf(reservationDto.getDate()));
+        reservation.setStartTime(Time.valueOf(reservationDto.getStartTime()));
+        reservation.setEndTime(Time.valueOf(reservationDto.getEndTime()));
         reservation.addOffice(office);
         reservation.setCanceled(false);
 

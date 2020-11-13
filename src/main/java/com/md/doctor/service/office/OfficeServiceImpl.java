@@ -75,4 +75,22 @@ public class OfficeServiceImpl implements OfficeService {
     public List<String> getCities() {
         return officeRepository.getCities();
     }
+
+    @Override
+    public Page<GetOfficeDto> findByNameOrSurnameAndCityAndSpecialization(String name, String city, Long specializationId, Pageable pageable) {
+        String doctorName = name == null ? "" : name;
+        String officeCity = city == null ? "" : city;
+
+
+        Specialization specialization = specializationRepo.findById(specializationId)
+                .orElseThrow(() -> new EntityNotFoundException("SPECIALIZATION WITH GIVEN ID NOT EXIST. ID: " + specializationId));
+
+        return officeRepository.
+                findAllByDoctor_NameStartingWithIgnoreCaseOrDoctor_SurnameStartingWithIgnoreCaseAndDoctor_SpecializationsAndAddress_City(doctorName, doctorName, specialization, officeCity, pageable)
+                .map(office ->
+                        GetOfficeDto.builder().id(office.getId())
+                                .name(office.getDoctor().getName() + " " + office.getDoctor().getSurname())
+                                .specializationName(specialization.getName())
+                                .build());
+    }
 }

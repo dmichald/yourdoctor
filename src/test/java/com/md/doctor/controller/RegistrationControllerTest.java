@@ -47,22 +47,10 @@ class RegistrationControllerTest {
         ResultActions actions = mockMvc.perform(post("/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonReq)
+
         );
 
         //then
         actions.andExpect(status().isCreated());
-    }
-
-    @Test
-    void confirmAccount() {
-
-    }
-
-    @Test
-    void resetPassword() {
-    }
-
-    @Test
-    void testResetPassword() {
     }
 }
