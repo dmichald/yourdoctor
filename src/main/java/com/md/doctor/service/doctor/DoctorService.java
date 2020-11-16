@@ -16,4 +16,6 @@ public interface DoctorService {
     Page<GetDoctorDto> getDoctorByNameOrSurname(String name, String surname, Pageable pageable);
 
     Doctor saveDoctor(AddDoctorDto doctorDto);
+
+
 }

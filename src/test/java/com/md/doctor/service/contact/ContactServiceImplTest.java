@@ -64,4 +64,20 @@ class ContactServiceImplTest {
         when(contactRepository.findById(anyLong())).thenReturn(Optional.empty());
         Assertions.assertThrows(EntityNotFoundException.class, () -> contactService.getContactById(anyLong()));
     }
+
+
+    @Test
+    @DisplayName("should correct update contact")
+    void shouldUpdateContact() {
+        when(contactRepository.findById(ID)).thenReturn(Optional.of(CONTACT));
+        Assertions.assertDoesNotThrow(() -> contactService.updateContact(CONTACT_DTO));
+
+    }
+
+    @Test
+    @DisplayName(" should throw EntityNotFoundException during updating contact if it not exists")
+    void shouldThrowExceptionDuringUpdatingContact() {
+        when(contactRepository.findById(ID)).thenReturn(Optional.empty());
+        Assertions.assertThrows(EntityNotFoundException.class, () -> contactService.updateContact(CONTACT_DTO));
+    }
 }
