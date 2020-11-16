@@ -20,5 +20,8 @@ public class EntityNotFoundExceptionMessage {
     public static String CONTACT_NOT_FOUND(Long id) {
         return "CONTACT NOT FOUND. ID: " + id;
     }
+    public static String SPECIALIZATION_NOT_FOUND(Long id) {
+        return "SPECIALIZATION NOT FOUND. ID: " + id;
+    }
 
 }

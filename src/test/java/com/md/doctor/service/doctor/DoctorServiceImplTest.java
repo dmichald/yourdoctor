@@ -4,8 +4,10 @@ import com.md.doctor.dto.AddDoctorDto;
 import com.md.doctor.dto.GetDoctorDto;
 import com.md.doctor.exception.EntityNotFoundException;
 import com.md.doctor.models.Doctor;
+import com.md.doctor.models.Specialization;
 import com.md.doctor.repository.DoctorRepo;
 import com.md.doctor.repository.SpecializationRepo;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,10 +21,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static com.md.doctor.TestResource.SPECIALIZATION;
+import static com.md.doctor.exception.EntityNotFoundExceptionMessage.DOCTOR_NOT_FOUND;
+import static com.md.doctor.exception.EntityNotFoundExceptionMessage.SPECIALIZATION_NOT_FOUND;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
@@ -33,9 +38,9 @@ class DoctorServiceImplTest {
     private static final Long ID = 1L;
     private static final String NAME = "Jan";
     private static final String SURNAME = "Kowal";
-    private static final Doctor DOCTOR = new Doctor(ID, NAME, SURNAME, null);
+    private static final Doctor DOCTOR = new Doctor(ID, NAME, SURNAME, new HashSet<>());
     private static final Page<Doctor> DOCTOR_PAGE = new PageImpl<>(Collections.singletonList(DOCTOR), PAGEABLE, 3);
-    private static final GetDoctorDto DOCTOR_DTO = new GetDoctorDto(ID, NAME, SURNAME, null);
+    private static final GetDoctorDto DOCTOR_DTO = new GetDoctorDto(ID, NAME, SURNAME, new HashSet<>());
     private static final AddDoctorDto ADD_DOCTOR_DTO = new AddDoctorDto(NAME, SURNAME, null);
     private static final Page<GetDoctorDto> EXPECTED_PAGE = new PageImpl<>(Collections.singletonList(DOCTOR_DTO), PAGEABLE, 3);
     @Mock
@@ -107,5 +112,58 @@ class DoctorServiceImplTest {
     void testSaveDoctor() {
         doctorService.saveDoctor(ADD_DOCTOR_DTO);
         verify(doctorRepository, times(1)).save(any());
+    }
+
+    @Test
+    @DisplayName(" should correct add specialization to existing doctor")
+    void addSpecializationTest() {
+
+        //when
+        when(specializationRepo.findById(ID)).thenReturn(Optional.of(SPECIALIZATION));
+        when(doctorRepository.findById(ID)).thenReturn(Optional.of(DOCTOR));
+
+        doctorService.addSpecialization(ID, ID);
+
+        //then
+        Doctor doctor = getDoctor();
+        Specialization specialization = getSpecialization();
+
+        assertTrue(doctor.getSpecializations().contains(specialization));
+    }
+
+    @Test
+    @DisplayName(" should throw exception during adding specialization if doctor not exists")
+    void addSpecializationDoctorNotFoundExceptionTest() {
+        //when
+        when(doctorRepository.findById(ID)).thenReturn(Optional.empty());
+
+        //then
+        Throwable exception = Assertions.assertThrows(EntityNotFoundException.class, () -> doctorService.addSpecialization(ID, ID));
+        assertEquals(DOCTOR_NOT_FOUND(ID), exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("should correct remove specialization")
+    void removeSpecializationTest() {
+        //when
+        when(specializationRepo.findById(ID)).thenReturn(Optional.of(SPECIALIZATION));
+        when(doctorRepository.findById(ID)).thenReturn(Optional.of(DOCTOR));
+
+        doctorService.addSpecialization(ID, ID);
+        doctorService.removeSpecialization(ID, ID);
+
+        //then
+        Doctor doctor = getDoctor();
+        assertTrue(doctor.getSpecializations().isEmpty());
+    }
+
+    private Doctor getDoctor() {
+        return doctorRepository.findById(ID)
+                .orElseThrow(() -> new EntityNotFoundException(DOCTOR_NOT_FOUND(ID)));
+    }
+
+    private Specialization getSpecialization() {
+        return specializationRepo
+                .findById(ID).orElseThrow(() -> new EntityNotFoundException(SPECIALIZATION_NOT_FOUND(ID)));
     }
 }

@@ -17,5 +17,8 @@ public interface DoctorService {
 
     Doctor saveDoctor(AddDoctorDto doctorDto);
 
+    void addSpecialization(Long specializationId, Long doctorId);
+    void removeSpecialization(Long specializationId, Long doctorId);
+
 
 }

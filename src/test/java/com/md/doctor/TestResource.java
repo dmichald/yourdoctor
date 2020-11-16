@@ -15,6 +15,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.UUID;
 
 
@@ -58,6 +59,8 @@ public class TestResource {
     public static final ReservationDto RESERVATION_DTO = new ReservationDto(ID, PATIENT_DTO, DATE, START_TIME, END_TIME, false);
     public static final User USER = new User();
     public static final String TOKEN = UUID.randomUUID().toString();
+
+    public static final Specialization SPECIALIZATION = new Specialization(ID, "TESTSPEC",new HashSet<>());
 
 
 }

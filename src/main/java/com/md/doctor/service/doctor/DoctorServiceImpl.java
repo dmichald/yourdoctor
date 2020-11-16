@@ -4,8 +4,8 @@ import com.md.doctor.dto.AddDoctorDto;
 import com.md.doctor.dto.GetDoctorDto;
 import com.md.doctor.exception.EntityNotFoundException;
 import com.md.doctor.mapper.DoctorMapper;
-import com.md.doctor.mapper.SpecializationMapper;
 import com.md.doctor.models.Doctor;
+import com.md.doctor.models.Specialization;
 import com.md.doctor.repository.DoctorRepo;
 import com.md.doctor.repository.SpecializationRepo;
 import lombok.RequiredArgsConstructor;
@@ -15,21 +15,22 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.md.doctor.exception.EntityNotFoundExceptionMessage.DOCTOR_NOT_FOUND;
+import static com.md.doctor.exception.EntityNotFoundExceptionMessage.SPECIALIZATION_NOT_FOUND;
+
 @RequiredArgsConstructor
 @Service
 public class DoctorServiceImpl implements DoctorService {
 
-    private static String ENTITY_NOT_FOUND = "ENTITY WITH GIVEN ID NOT EXIST. ID: ";
     private final DoctorRepo doctorRepository;
     private final SpecializationRepo specializationRepo;
     private DoctorMapper doctorMapper = Mappers.getMapper(DoctorMapper.class);
-    private SpecializationMapper specializationMapper = Mappers.getMapper(SpecializationMapper.class);
 
     @Override
     public GetDoctorDto getDoctorById(Long id) {
         return doctorRepository.findById(id)
                 .map(doctor -> doctorMapper.mapToGetDoctorDto(doctor))
-                .orElseThrow(() -> new EntityNotFoundException(ENTITY_NOT_FOUND + id));
+                .orElseThrow(() -> new EntityNotFoundException(DOCTOR_NOT_FOUND(id)));
     }
 
     @Override
@@ -57,17 +58,39 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorRepository.save(doctor);
     }
 
+    @Override
+    @Transactional
+    public void addSpecialization(Long specializationId, Long doctorId) {
+        Doctor doctor = getDoctor(doctorId);
+        Specialization specialization = getSpecialization(specializationId);
+        doctor.addSpecialization(specialization);
+    }
+
+    @Override
+    public void removeSpecialization(Long specializationId, Long doctorId) {
+        Doctor doctor = getDoctor(doctorId);
+        Specialization specialization = getSpecialization(specializationId);
+        doctor.removeSpecialization(specialization);
+    }
 
 
     private void addSpecializations(AddDoctorDto doctorDto, Doctor doctor) {
         if(doctorDto.getSpecializationSet() != null && !doctorDto.getSpecializationSet().isEmpty()){
             doctorDto.getSpecializationSet().forEach(specializationDto ->
                     doctor.addSpecialization(
-                            specializationRepo.findById(specializationDto.getId())
-                                    .orElseThrow(() -> new EntityNotFoundException("SPECIALIZATION WITH ID: " + specializationDto.getId() + " NOT EXIST"))
-                    )
+                            getSpecialization(specializationDto.getId()))
             );
         }
+    }
+
+    private Doctor getDoctor(Long id) {
+        return doctorRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(DOCTOR_NOT_FOUND(id)));
+    }
+
+    private Specialization getSpecialization(Long specializationId) {
+        return specializationRepo.findById(specializationId)
+                .orElseThrow(() -> new EntityNotFoundException(SPECIALIZATION_NOT_FOUND(specializationId)));
     }
 
 

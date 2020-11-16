@@ -16,6 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.Optional;
 
 import static com.md.doctor.TestResource.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -28,7 +29,6 @@ class ContactServiceImplTest {
     private ContactRepo contactRepository;
 
     private ContactService contactService;
-    private ContactMapper contactMapper = Mappers.getMapper(ContactMapper.class);
 
     @BeforeEach
     void setUp() {
@@ -61,23 +61,32 @@ class ContactServiceImplTest {
     @Test
     @DisplayName(" should throw EntityNotFoundException when contact not exist")
     void shouldThrowEntityNOtFoundException(){
+        //when
         when(contactRepository.findById(anyLong())).thenReturn(Optional.empty());
-        Assertions.assertThrows(EntityNotFoundException.class, () -> contactService.getContactById(anyLong()));
+
+        //then
+        assertThrows(EntityNotFoundException.class, () -> contactService.getContactById(anyLong()));
     }
 
 
     @Test
     @DisplayName("should correct update contact")
     void shouldUpdateContact() {
+        //when
         when(contactRepository.findById(ID)).thenReturn(Optional.of(CONTACT));
-        Assertions.assertDoesNotThrow(() -> contactService.updateContact(CONTACT_DTO));
+
+        //then
+        assertDoesNotThrow(() -> contactService.updateContact(CONTACT_DTO));
 
     }
 
     @Test
     @DisplayName(" should throw EntityNotFoundException during updating contact if it not exists")
     void shouldThrowExceptionDuringUpdatingContact() {
+        //when
         when(contactRepository.findById(ID)).thenReturn(Optional.empty());
-        Assertions.assertThrows(EntityNotFoundException.class, () -> contactService.updateContact(CONTACT_DTO));
+
+        //then
+        assertThrows(EntityNotFoundException.class, () -> contactService.updateContact(CONTACT_DTO));
     }
 }
