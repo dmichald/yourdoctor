@@ -2,6 +2,7 @@ package com.md.doctor.service.doctor;
 
 import com.md.doctor.dto.AddDoctorDto;
 import com.md.doctor.dto.GetDoctorDto;
+import com.md.doctor.dto.UpdateDoctorNameAndSurnameDto;
 import com.md.doctor.exception.EntityNotFoundException;
 import com.md.doctor.models.Doctor;
 import com.md.doctor.models.Specialization;
@@ -155,6 +156,22 @@ class DoctorServiceImplTest {
         //then
         Doctor doctor = getDoctor();
         assertTrue(doctor.getSpecializations().isEmpty());
+    }
+
+    @Test
+    @DisplayName("should update doctor name and surname")
+    void updateDoctorNameAndSurnameTest() {
+        //given
+        UpdateDoctorNameAndSurnameDto updateDoc = new UpdateDoctorNameAndSurnameDto("Nowy", "New");
+        //when
+        when(doctorRepository.findById(ID)).thenReturn(Optional.of(DOCTOR));
+        Doctor doctor = doctorService.updateDoctorNameAndSurname(ID, updateDoc);
+
+        //then
+        assertAll(
+                () -> assertEquals(doctor.getName(), updateDoc.getName()),
+                () -> assertEquals(doctor.getSurname(), updateDoc.getSurname())
+        );
     }
 
     private Doctor getDoctor() {

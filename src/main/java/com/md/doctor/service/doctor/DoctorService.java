@@ -2,6 +2,7 @@ package com.md.doctor.service.doctor;
 
 import com.md.doctor.dto.AddDoctorDto;
 import com.md.doctor.dto.GetDoctorDto;
+import com.md.doctor.dto.UpdateDoctorNameAndSurnameDto;
 import com.md.doctor.models.Doctor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +19,10 @@ public interface DoctorService {
     Doctor saveDoctor(AddDoctorDto doctorDto);
 
     void addSpecialization(Long specializationId, Long doctorId);
+
     void removeSpecialization(Long specializationId, Long doctorId);
+
+    Doctor updateDoctorNameAndSurname(Long id, UpdateDoctorNameAndSurnameDto doctor);
 
 
 }

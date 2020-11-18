@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static com.md.doctor.TestResource.objectMapper;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -39,12 +40,8 @@ class ReservationControllerTest {
     @Test
     void addReservation() throws Exception {
         //given
-        ObjectMapper mapper = new ObjectMapper()
-                .registerModule(new ParameterNamesModule())
-                .registerModule(new Jdk8Module())
-                .registerModule(new JavaTimeModule());
 
-        String jsonRequest = mapper.writeValueAsString(TestResource.RESERVATION_DTO);
+        String jsonRequest = objectMapper().writeValueAsString(TestResource.RESERVATION_DTO);
 
         //when
         ResultActions actions = mockMvc.perform(post("/offices/1/reservations")

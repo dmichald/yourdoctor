@@ -3,12 +3,13 @@ package com.md.doctor.service.reservation;
 import com.md.doctor.dto.ReservationDto;
 import com.md.doctor.models.Office;
 
+import javax.validation.Valid;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 
 public interface ReservationService {
-    void saveReservation(ReservationDto reservationDto, Long officeId);
+    void saveReservation(@Valid ReservationDto reservationDto, Long officeId);
 
     ReservationDto getReservationById(Long id);
 

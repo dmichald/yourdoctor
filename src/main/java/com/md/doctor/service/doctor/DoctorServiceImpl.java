@@ -2,6 +2,7 @@ package com.md.doctor.service.doctor;
 
 import com.md.doctor.dto.AddDoctorDto;
 import com.md.doctor.dto.GetDoctorDto;
+import com.md.doctor.dto.UpdateDoctorNameAndSurnameDto;
 import com.md.doctor.exception.EntityNotFoundException;
 import com.md.doctor.mapper.DoctorMapper;
 import com.md.doctor.models.Doctor;
@@ -66,11 +67,21 @@ public class DoctorServiceImpl implements DoctorService {
         doctor.addSpecialization(specialization);
     }
 
+    @Transactional
     @Override
     public void removeSpecialization(Long specializationId, Long doctorId) {
         Doctor doctor = getDoctor(doctorId);
         Specialization specialization = getSpecialization(specializationId);
         doctor.removeSpecialization(specialization);
+    }
+
+    @Transactional
+    @Override
+    public Doctor updateDoctorNameAndSurname(Long id, UpdateDoctorNameAndSurnameDto doctor) {
+        Doctor doc = getDoctor(id);
+        doc.setName(doctor.getName());
+        doc.setSurname(doctor.getSurname());
+        return doc;
     }
 
 

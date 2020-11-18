@@ -2,6 +2,7 @@ package com.md.doctor.controller;
 
 import com.md.doctor.dto.AddDoctorDto;
 import com.md.doctor.dto.GetDoctorDto;
+import com.md.doctor.dto.UpdateDoctorNameAndSurnameDto;
 import com.md.doctor.service.doctor.DoctorService;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +23,24 @@ public class DoctorController {
         doctorService.saveDoctor(doctorDto);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public GetDoctorDto getDoctor(@PathVariable @NotNull Long id) {
         return doctorService.getDoctorById(id);
+    }
+
+    @PutMapping("/{id}")
+    void updateDoctor(@PathVariable Long id, @RequestBody UpdateDoctorNameAndSurnameDto doctor) {
+        doctorService.updateDoctorNameAndSurname(id, doctor);
+    }
+
+    @PutMapping("/{doctorId}/specializations")
+    void addSpecializationToDoctor(@PathVariable Long doctorId, @RequestParam Long specializationId) {
+        doctorService.addSpecialization(specializationId, doctorId);
+    }
+
+    @DeleteMapping("/{doctorId}/specializations")
+    void removeSpecializationToDoctor(@PathVariable Long doctorId, @RequestParam Long specializationId) {
+        doctorService.removeSpecialization(specializationId, doctorId);
     }
 
 }

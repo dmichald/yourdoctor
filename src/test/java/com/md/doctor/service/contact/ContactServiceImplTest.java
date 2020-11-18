@@ -58,6 +58,7 @@ class ContactServiceImplTest {
         assertEquals(CONTACT_DTO,returnedContact);
     }
 
+
     @Test
     @DisplayName(" should throw EntityNotFoundException when contact not exist")
     void shouldThrowEntityNOtFoundException(){

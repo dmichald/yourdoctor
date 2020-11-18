@@ -2,6 +2,7 @@ package com.md.doctor.service.reservation;
 
 import com.md.doctor.dto.ReservationDto;
 import com.md.doctor.exception.EntityNotFoundException;
+import com.md.doctor.exception.EntityNotFoundExceptionMessage;
 import com.md.doctor.mapper.PatientMapper;
 import com.md.doctor.mapper.ReservationMapper;
 import com.md.doctor.models.Office;
@@ -17,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
+
+import static com.md.doctor.exception.EntityNotFoundExceptionMessage.*;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -38,7 +41,8 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public void saveReservation(ReservationDto reservationDto, Long officeId) {
         Patient patient = patientRepository.save(patientMapper.mapToPatient(reservationDto.getPatient()));
-        Office office = officeRepository.findById(officeId).orElseThrow(() -> new EntityNotFoundException("OFFICE NOT FOUND"));
+
+        Office office = officeRepository.findById(officeId).orElseThrow(() -> new EntityNotFoundException(OFFICE_NOT_FOUND(officeId)));
         Reservation reservation = new Reservation();
         reservation.setDate(Date.valueOf(reservationDto.getDate()));
         reservation.setStartTime(Time.valueOf(reservationDto.getStartTime()));

@@ -1,6 +1,10 @@
 package com.md.doctor;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import com.md.doctor.dto.*;
 import com.md.doctor.models.*;
 import com.md.doctor.models.security.User;
@@ -8,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -61,6 +64,13 @@ public class TestResource {
     public static final String TOKEN = UUID.randomUUID().toString();
 
     public static final Specialization SPECIALIZATION = new Specialization(ID, "TESTSPEC",new HashSet<>());
+
+    public static ObjectMapper objectMapper() {
+        return new ObjectMapper()
+                .registerModule(new ParameterNamesModule())
+                .registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());
+    }
 
 
 }
