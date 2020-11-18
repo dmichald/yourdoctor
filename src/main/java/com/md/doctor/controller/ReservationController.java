@@ -2,13 +2,12 @@ package com.md.doctor.controller;
 
 import com.md.doctor.dto.reseravtion.ReservationDto;
 import com.md.doctor.service.reservation.ReservationService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.*;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.Date;
+import java.util.List;
 
 
 @RestController
@@ -20,4 +19,18 @@ public class ReservationController {
     public void addReservation(@PathVariable Long officeId, @Valid @RequestBody ReservationDto reservationDto) {
         reservationService.saveReservation(reservationDto, officeId);
     }
+
+    @GetMapping("/offices/{officeId}/available-hours")
+    ListHoursWrapper getAvailableHoursInGivenDay(@PathVariable Long officeId, @RequestParam Date date) {
+        var hours = reservationService.getFreeReservationsHours(date, officeId);
+        return new ListHoursWrapper(hours);
+    }
+}
+
+@NoArgsConstructor
+@Setter
+@Getter
+@AllArgsConstructor
+class ListHoursWrapper {
+    private List<String> hours;
 }

@@ -32,8 +32,6 @@ public class Reservation {
 
     private Time startTime;
 
-    private Time endTime;
-
     @CreationTimestamp
     private Date createdAt;
 
@@ -66,12 +64,11 @@ public class Reservation {
                 Objects.equals(patient, that.patient) &&
                 Objects.equals(date, that.date) &&
                 Objects.equals(startTime, that.startTime) &&
-                Objects.equals(endTime, that.endTime) &&
                 Objects.equals(createdAt, that.createdAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, startTime, endTime, createdAt, canceled);
+        return Objects.hash(id, startTime, createdAt, canceled);
     }
 }

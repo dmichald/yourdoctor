@@ -22,6 +22,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Time;
 import java.util.List;
 
 @Service
@@ -53,6 +54,10 @@ public class OfficeServiceImpl implements OfficeService {
         office.setAddress(address);
         office.setContact(contact);
         office.setDoctor(doctor);
+        office.setOneVisitDuration(officeDto.getOneVisitDuration());
+        office.setStartWorkAt(Time.valueOf(officeDto.getStartWorkAt()));
+        office.setFinishWorkAt(Time.valueOf(officeDto.getFinishWorkAt()));
+        office.setPrice(officeDto.getPrice());
         officeRepository.save(office);
 
     }

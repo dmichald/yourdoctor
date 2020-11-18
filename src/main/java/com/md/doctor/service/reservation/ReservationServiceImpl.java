@@ -16,9 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.Duration;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
-import static com.md.doctor.exception.EntityNotFoundExceptionMessage.*;
+import static com.md.doctor.exception.EntityNotFoundExceptionMessage.OFFICE_NOT_FOUND;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -45,7 +48,6 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation reservation = new Reservation();
         reservation.setDate(Date.valueOf(reservationDto.getDate()));
         reservation.setStartTime(Time.valueOf(reservationDto.getStartTime()));
-        reservation.setEndTime(Time.valueOf(reservationDto.getEndTime()));
         reservation.addOffice(office);
         reservation.setCanceled(false);
 
@@ -71,13 +73,87 @@ public class ReservationServiceImpl implements ReservationService {
         reservation.setCanceled(true);
     }
 
-    @Override
-    public List<ReservationDto> getReservationByDayAndDoctor(Date date, Office office) {
-        return null;
+
+    void test() {
+        List<LocalTime> result = new ArrayList<>();
+        String start = "08:00:00";
+        String finish = "16:00:00";
+
+        LocalTime startTime = LocalTime.parse(start);
+        LocalTime endTime = LocalTime.parse(finish);
+
+        Duration totalTime = Duration.between(startTime, endTime);
+        int subintervalCount = 16;
+        Duration subintervalLength = totalTime.dividedBy(subintervalCount);
+
+        LocalTime currentTime = startTime;
+        for (int i = 0; i < subintervalCount; i++) {
+            result.add(currentTime);
+            currentTime = currentTime.plus(subintervalLength);
+        }
+
     }
 
     @Override
-    public ReservationDto getReservationByDateAndStartTimeAndEndTime(Date date, Time startTime, Time endTime) {
-        return null;
+    public List<String> getFreeReservationsHours(Date date, Long officeId) {
+        Office office = getOffice(officeId);
+        var reservations = reservationRepository.findAllByOfficeAndDate(office, date);
+        var allHours = getAllReservationsAvailableInOneDay(office);
+        List<String> freeHours = new ArrayList<>();
+
+        allHours.forEach(hour -> {
+            if (isGivenHourAvailable(hour, reservations, office.getOneVisitDuration())) {
+                freeHours.add(hour.toString());
+            }
+        });
+
+
+        return freeHours;
+    }
+
+
+    private boolean isGivenHourAvailable(LocalTime toCheck, List<Reservation> reservations, int visitDuration) {
+        for (Reservation reservation : reservations) {
+            LocalTime start = reservation.getStartTime().toLocalTime();
+            LocalTime toCheckEnd = toCheck.plusMinutes(visitDuration);
+            LocalTime end = start.plusMinutes(visitDuration);
+            if (toCheck.equals(start) || (toCheck.isAfter(start) && toCheck.isBefore(end)) || (toCheckEnd.isAfter(start) && toCheckEnd.isBefore(end))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Returns all available hours in a given office in given day.
+     * For example: if the office works from 8 a.m to 16 (8 a.m) and  the duration of a visit is 30 minutes
+     * the day will be divided into 16 parts and each next visit hour will be 8:30, 9:00,9:30
+     *
+     * @param office office in which hours should be searching
+     * @return list of all available reservations hours in given office
+     */
+    private List<LocalTime> getAllReservationsAvailableInOneDay(Office office) {
+        final int hour = 60;
+        LocalTime startTime = office.getStartWorkAt().toLocalTime();
+        LocalTime endTime = office.getFinishWorkAt().toLocalTime();
+
+        Duration totalTime = Duration.between(startTime, endTime);
+        int subIntervalsCount = (endTime.getHour() - startTime.getHour()) * (hour / office.getOneVisitDuration());
+        Duration subIntervalLength = totalTime.dividedBy(subIntervalsCount);
+
+        List<LocalTime> hours = new ArrayList<>();
+
+        LocalTime time = startTime;
+        for (int i = 0; i < subIntervalsCount; i++) {
+            hours.add(time);
+            time = time.plus(subIntervalLength);
+        }
+
+        return hours;
+    }
+
+    private Office getOffice(Long id) {
+        return officeRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(OFFICE_NOT_FOUND(id)));
     }
 }

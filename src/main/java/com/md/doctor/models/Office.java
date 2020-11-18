@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -32,7 +33,10 @@ public class Office {
     private Set<Reservation> reservations = new HashSet<>();
     @OneToOne
     private User owner;
-
+    int price;
+    Time startWorkAt;
+    Time finishWorkAt;
+    int oneVisitDuration;
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

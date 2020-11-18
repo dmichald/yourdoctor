@@ -12,6 +12,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.Duration;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static com.md.doctor.TestResource.*;
@@ -79,4 +83,5 @@ class AddressServiceImplTest {
         when(addressRepository.findById(ID)).thenReturn(Optional.of(ADDRESS));
         Assertions.assertDoesNotThrow(() -> addressService.updateAddress(ID, ADDRESS_DTO));
     }
+
 }

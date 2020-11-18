@@ -98,7 +98,6 @@ public class Bootstrap implements CommandLineRunner {
         reservation.setCanceled(false);
         reservation.setDate(Date.valueOf(LocalDate.of(2021, 3, 21)));
         reservation.setStartTime(Time.valueOf(LocalTime.of(10, 0)));
-        reservation.setEndTime(Time.valueOf(LocalTime.of(10, 30)));
         Reservation savedRes = reservationRepo.save(reservation);
         savedRes.addPatient(savedPatient);
         savedRes.addOffice(savedOffice);
