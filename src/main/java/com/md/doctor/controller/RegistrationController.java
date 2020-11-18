@@ -1,7 +1,7 @@
 package com.md.doctor.controller;
 
-import com.md.doctor.dto.ResetPasswordDto;
-import com.md.doctor.dto.UserDto;
+import com.md.doctor.dto.security.ResetPasswordDto;
+import com.md.doctor.dto.security.UserDto;
 import com.md.doctor.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

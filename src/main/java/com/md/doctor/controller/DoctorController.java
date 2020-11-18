@@ -1,8 +1,8 @@
 package com.md.doctor.controller;
 
-import com.md.doctor.dto.AddDoctorDto;
-import com.md.doctor.dto.GetDoctorDto;
-import com.md.doctor.dto.UpdateDoctorNameAndSurnameDto;
+import com.md.doctor.dto.address.AddDoctorDto;
+import com.md.doctor.dto.doctor.GetDoctorDto;
+import com.md.doctor.dto.doctor.UpdateDoctorNameAndSurnameDto;
 import com.md.doctor.service.doctor.DoctorService;
 import org.springframework.web.bind.annotation.*;
 

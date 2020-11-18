@@ -1,6 +1,6 @@
 package com.md.doctor.service.contact;
 
-import com.md.doctor.dto.ContactDto;
+import com.md.doctor.dto.contact.ContactDto;
 import com.md.doctor.exception.EntityNotFoundException;
 import com.md.doctor.mapper.ContactMapper;
 import com.md.doctor.models.Contact;

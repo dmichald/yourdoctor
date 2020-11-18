@@ -1,15 +1,12 @@
 package com.md.doctor.service.contact;
 
-import com.md.doctor.dto.ContactDto;
+import com.md.doctor.dto.contact.ContactDto;
 import com.md.doctor.exception.EntityNotFoundException;
-import com.md.doctor.mapper.ContactMapper;
 import com.md.doctor.repository.ContactRepo;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mapstruct.factory.Mappers;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 

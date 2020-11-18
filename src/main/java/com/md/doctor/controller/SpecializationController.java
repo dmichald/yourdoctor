@@ -1,7 +1,7 @@
 package com.md.doctor.controller;
 
-import com.md.doctor.dto.SpecializationDto;
-import com.md.doctor.dto.SpecializationListDto;
+import com.md.doctor.dto.specilalization.SpecializationDto;
+import com.md.doctor.dto.specilalization.SpecializationListDto;
 import com.md.doctor.repository.SpecializationRepo;
 import org.springframework.web.bind.annotation.*;
 

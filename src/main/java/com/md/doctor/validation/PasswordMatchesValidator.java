@@ -1,6 +1,6 @@
 package com.md.doctor.validation;
 
-import com.md.doctor.dto.UserDto;
+import com.md.doctor.dto.security.UserDto;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -1,6 +1,6 @@
 package com.md.doctor.mapper;
 
-import com.md.doctor.dto.ContactDto;
+import com.md.doctor.dto.contact.ContactDto;
 import com.md.doctor.models.Contact;
 import org.mapstruct.Mapper;
 

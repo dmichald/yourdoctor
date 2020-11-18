@@ -1,6 +1,6 @@
 package com.md.doctor.controller;
 
-import com.md.doctor.dto.ReservationDto;
+import com.md.doctor.dto.reseravtion.ReservationDto;
 import com.md.doctor.service.reservation.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;

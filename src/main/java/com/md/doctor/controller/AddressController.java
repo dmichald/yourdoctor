@@ -1,6 +1,6 @@
 package com.md.doctor.controller;
 
-import com.md.doctor.dto.AddressDto;
+import com.md.doctor.dto.address.AddressDto;
 import com.md.doctor.service.address.AddressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;

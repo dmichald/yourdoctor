@@ -1,5 +1,6 @@
-package com.md.doctor.dto;
+package com.md.doctor.dto.address;
 
+import com.md.doctor.dto.specilalization.SpecializationDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

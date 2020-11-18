@@ -1,7 +1,7 @@
 package com.md.doctor.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.md.doctor.dto.UserDto;
+import com.md.doctor.dto.security.UserDto;
 import com.md.doctor.service.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,8 +1,7 @@
 package com.md.doctor.service.reservation;
 
-import com.md.doctor.dto.ReservationDto;
+import com.md.doctor.dto.reseravtion.ReservationDto;
 import com.md.doctor.exception.EntityNotFoundException;
-import com.md.doctor.exception.EntityNotFoundExceptionMessage;
 import com.md.doctor.mapper.PatientMapper;
 import com.md.doctor.mapper.ReservationMapper;
 import com.md.doctor.models.Office;

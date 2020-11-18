@@ -1,6 +1,6 @@
 package com.md.doctor.mapper;
 
-import com.md.doctor.dto.ReservationDto;
+import com.md.doctor.dto.reseravtion.ReservationDto;
 import com.md.doctor.models.Reservation;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

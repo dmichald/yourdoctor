@@ -1,6 +1,6 @@
 package com.md.doctor.service.user;
 
-import com.md.doctor.dto.UserDto;
+import com.md.doctor.dto.security.UserDto;
 import com.md.doctor.models.security.ConfirmationToken;
 import com.md.doctor.models.security.User;
 import com.md.doctor.repository.ConfirmationTokenRepo;

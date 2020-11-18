@@ -1,5 +1,6 @@
-package com.md.doctor.dto;
+package com.md.doctor.dto.doctor;
 
+import com.md.doctor.dto.specilalization.SpecializationDto;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;

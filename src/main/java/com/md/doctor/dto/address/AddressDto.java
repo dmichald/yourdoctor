@@ -1,4 +1,4 @@
-package com.md.doctor.dto;
+package com.md.doctor.dto.address;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

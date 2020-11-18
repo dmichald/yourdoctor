@@ -1,4 +1,4 @@
-package com.md.doctor.dto;
+package com.md.doctor.dto.specilalization;
 
 import com.md.doctor.models.Specialization;
 import lombok.AllArgsConstructor;

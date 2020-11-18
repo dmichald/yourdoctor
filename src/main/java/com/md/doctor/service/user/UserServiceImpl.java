@@ -1,7 +1,7 @@
 package com.md.doctor.service.user;
 
-import com.md.doctor.dto.ResetPasswordDto;
-import com.md.doctor.dto.UserDto;
+import com.md.doctor.dto.security.ResetPasswordDto;
+import com.md.doctor.dto.security.UserDto;
 import com.md.doctor.exception.EntityNotFoundException;
 import com.md.doctor.exception.UserAlreadyExistException;
 import com.md.doctor.models.security.ConfirmationToken;

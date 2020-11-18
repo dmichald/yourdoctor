@@ -1,6 +1,6 @@
 package com.md.doctor.controller;
 
-import com.md.doctor.dto.UpdateDoctorNameAndSurnameDto;
+import com.md.doctor.dto.doctor.UpdateDoctorNameAndSurnameDto;
 import com.md.doctor.service.doctor.DoctorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

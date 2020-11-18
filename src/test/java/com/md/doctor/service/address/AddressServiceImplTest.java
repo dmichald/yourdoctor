@@ -1,6 +1,6 @@
 package com.md.doctor.service.address;
 
-import com.md.doctor.dto.AddressDto;
+import com.md.doctor.dto.address.AddressDto;
 import com.md.doctor.exception.EntityNotFoundException;
 import com.md.doctor.models.Address;
 import com.md.doctor.repository.AddressRepo;

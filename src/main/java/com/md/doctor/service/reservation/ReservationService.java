@@ -1,6 +1,6 @@
 package com.md.doctor.service.reservation;
 
-import com.md.doctor.dto.ReservationDto;
+import com.md.doctor.dto.reseravtion.ReservationDto;
 import com.md.doctor.models.Office;
 
 import javax.validation.Valid;

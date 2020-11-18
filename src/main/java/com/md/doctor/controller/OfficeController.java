@@ -1,6 +1,6 @@
 package com.md.doctor.controller;
 
-import com.md.doctor.dto.GetOfficeDto;
+import com.md.doctor.dto.office.GetOfficeDto;
 import com.md.doctor.service.office.OfficeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

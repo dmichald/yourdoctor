@@ -1,8 +1,7 @@
 package com.md.doctor.mapper;
 
-import com.md.doctor.dto.AddressDto;
+import com.md.doctor.dto.address.AddressDto;
 import com.md.doctor.models.Address;
-import org.hibernate.annotations.NamedQuery;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 

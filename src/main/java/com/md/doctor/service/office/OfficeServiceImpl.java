@@ -1,7 +1,7 @@
 package com.md.doctor.service.office;
 
-import com.md.doctor.dto.GetOfficeDto;
-import com.md.doctor.dto.OfficeDto;
+import com.md.doctor.dto.office.GetOfficeDto;
+import com.md.doctor.dto.office.OfficeDto;
 import com.md.doctor.exception.EntityNotFoundException;
 import com.md.doctor.mapper.AddressMapper;
 import com.md.doctor.mapper.ContactMapper;

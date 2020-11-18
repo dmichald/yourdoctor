@@ -1,4 +1,4 @@
-package com.md.doctor.dto;
+package com.md.doctor.dto.security;
 
 import com.md.doctor.validation.PasswordMatches;
 import lombok.*;

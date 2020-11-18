@@ -1,6 +1,6 @@
 package com.md.doctor.mapper;
 
-import com.md.doctor.dto.OfficeDto;
+import com.md.doctor.dto.office.OfficeDto;
 import com.md.doctor.models.Office;
 import org.mapstruct.Mapper;
 

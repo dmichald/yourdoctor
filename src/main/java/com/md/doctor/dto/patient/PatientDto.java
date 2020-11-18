@@ -1,5 +1,6 @@
-package com.md.doctor.dto;
+package com.md.doctor.dto.patient;
 
+import com.md.doctor.dto.address.AddressDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
