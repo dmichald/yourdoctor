@@ -17,4 +17,6 @@ public interface OfficeService {
 
     Page<GetOfficeDto> findByNameOrSurnameAndCityAndSpecialization(String name, String city, Long specializationId, Pageable pageable);
 
+    OfficeDto getById(Long id);
+
 }

@@ -24,3 +24,9 @@ spring:
 jwt:
   expirationTime: 3600000
   secret: 29t7syadgf87qtr92rgu8yofvdc8023tr2379rfvcusav82t92
+
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+

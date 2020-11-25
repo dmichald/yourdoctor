@@ -46,6 +46,7 @@ public class Bootstrap implements CommandLineRunner {
         for (int i = 0; i < 50; i++) {
             addToDb(i);
         }
+
     }
 
     private void addToDb(int i) {
@@ -89,6 +90,10 @@ public class Bootstrap implements CommandLineRunner {
         office.setDoctor(savedDoc);
         office.setContact(savedContact);
         office.setAddress(savedDocAddr);
+        office.setPrice(100);
+        office.setStartWorkAt(Time.valueOf(LocalTime.of(8, 16)));
+        office.setFinishWorkAt(Time.valueOf(LocalTime.of(8, 16)));
+        office.setOneVisitDuration(30);
         Office savedOffice = officeRepo.save(office);
         savedOffice.setOwner(userRepository.findByUsername("test").orElseThrow());
 

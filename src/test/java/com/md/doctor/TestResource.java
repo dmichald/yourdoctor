@@ -70,7 +70,7 @@ public class TestResource {
     public static final AddressDto ADDRESS_DTO = new AddressDto(ID, NAME, SURNAME, STREET, CODE, CITY);
     public static final PatientDto PATIENT_DTO = new PatientDto(ID,EMAIL,TEL_NUMBER,ADDRESS_DTO);
     public static final ContactDto CONTACT_DTO = new ContactDto(ID, TEL_NUMBER, EMAIL);
-    public static final OfficeDto OFFICE_DTO = new OfficeDto(ID, DOCTOR_DTO, CONTACT_DTO, ADDRESS_DTO, new HashSet<>(), new User(), PRICE, START_WORK_TIME, END_WORK_TIME, VISIT_DURATION);
+    public static final OfficeDto OFFICE_DTO = new OfficeDto(ID, DOCTOR_DTO, CONTACT_DTO, ADDRESS_DTO, new HashSet<>(), new User(),PRICE, START_WORK_TIME, END_WORK_TIME, VISIT_DURATION);
     public static final Office OFFICE = new Office(ID, DOCTOR, CONTACT, ADDRESS, new HashSet<>(), new User(), PRICE, Time.valueOf(START_WORK_TIME), Time.valueOf(END_WORK_TIME), VISIT_DURATION);
     public static final Reservation RESERVATION = new Reservation(ID, OFFICE, PATIENT, Date.valueOf(DATE), Time.valueOf(RESERVATION_H), Date.valueOf(DATE), false);
     public static final ReservationDto RESERVATION_DTO = new ReservationDto(ID, PATIENT_DTO, DATE, RESERVATION_H, false);

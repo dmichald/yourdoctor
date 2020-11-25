@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -48,6 +48,12 @@ public class Doctor {
     public void removeSpecialization(Specialization specialization) {
         specializations.remove(specialization);
         specialization.getDoctors().remove(this);
+    }
+
+    public Specialization getFirst() {
+        return this.specializations.stream()
+                .findFirst()
+                .orElseThrow();
     }
 
     public Long getId() {

@@ -16,5 +16,17 @@ public interface OfficeRepo extends JpaRepository<Office, Long> {
     @Query(value = "SELECT DISTINCT a.city FROM Office o  JOIN o.address a ON o.address.id = a.id")
     List<String> getCities();
 
+    @Query(value = "SELECT office.id as id, doctor.name as name, doctor.surname as surname, specialization.name as specialization FROM office " +
+            "INNER JOIN doctor ON office.doctor_id = doctor.id " +
+            "   JOIN doctor_specialization ON doctor.id = doctor_specialization.doctor_id " +
+            "   JOIN specialization ON specialization.id = doctor_specialization.specialization_id " +
+            "INNER JOIN address ON office.address_id = address.id " +
+            "WHERE (?1 IS NULL OR address.city = ?1) " +
+            "AND (doctor.name LIKE ?2% OR doctor.surname LIKE ?2%) " +
+            "AND (specialization.id = ?3 OR ?3 IS NULL )  ", nativeQuery = true)
+    Page<OfficeSummary> getOffices(String city, String doctorName, Long specializationId, Pageable pageable);
+
     Page<Office> findAllByDoctor_NameStartingWithIgnoreCaseOrDoctor_SurnameStartingWithIgnoreCaseAndDoctor_SpecializationsAndAddress_City(String name, String surname, Specialization specialization, String city, Pageable pageable);
 }
+
+

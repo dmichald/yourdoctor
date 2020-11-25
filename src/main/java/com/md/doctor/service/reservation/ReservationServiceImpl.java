@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.md.doctor.exception.EntityNotFoundExceptionMessage.OFFICE_NOT_FOUND;
+import static com.md.doctor.exception.EntityNotFoundExceptionMessage.RESERVATION_NOT_FOUND;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -61,37 +62,16 @@ public class ReservationServiceImpl implements ReservationService {
     public ReservationDto getReservationById(Long id) {
         return reservationRepository.findById(id)
                 .map(reservationMapper::mapToReservationDto)
-                .orElseThrow(() -> new EntityNotFoundException("RESERVATION WITH GIVEN ID NOT EXIST. ID: " + id));
+                .orElseThrow(() -> new EntityNotFoundException(RESERVATION_NOT_FOUND(id)));
     }
 
     @Override
     @Transactional
     public void cancelReservation(Long reservationId) {
         Reservation reservation = reservationRepository.
-                findById(reservationId).orElseThrow(() -> new EntityNotFoundException("RESERVATION WITH GIVEN ID NOT EXIST. ID: " + reservationId));
+                findById(reservationId).orElseThrow(() -> new EntityNotFoundException(RESERVATION_NOT_FOUND(reservationId)));
 
         reservation.setCanceled(true);
-    }
-
-
-    void test() {
-        List<LocalTime> result = new ArrayList<>();
-        String start = "08:00:00";
-        String finish = "16:00:00";
-
-        LocalTime startTime = LocalTime.parse(start);
-        LocalTime endTime = LocalTime.parse(finish);
-
-        Duration totalTime = Duration.between(startTime, endTime);
-        int subintervalCount = 16;
-        Duration subintervalLength = totalTime.dividedBy(subintervalCount);
-
-        LocalTime currentTime = startTime;
-        for (int i = 0; i < subintervalCount; i++) {
-            result.add(currentTime);
-            currentTime = currentTime.plus(subintervalLength);
-        }
-
     }
 
     @Override
