@@ -1,7 +1,7 @@
 package com.md.doctor.mapper;
 
 
-import com.md.doctor.dto.address.AddDoctorDto;
+import com.md.doctor.dto.doctor.AddDoctorDto;
 import com.md.doctor.dto.doctor.GetDoctorDto;
 import com.md.doctor.models.Doctor;
 import org.junit.jupiter.api.DisplayName;

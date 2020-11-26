@@ -46,7 +46,6 @@ public class Bootstrap implements CommandLineRunner {
         for (int i = 0; i < 50; i++) {
             addToDb(i);
         }
-
     }
 
     private void addToDb(int i) {
@@ -58,17 +57,14 @@ public class Bootstrap implements CommandLineRunner {
         Doctor savedDoc = doctorRepo.save(doctor);
         savedDoc.addSpecialization(s);
 
+
         Address docAddres = new Address();
-        docAddres.setName("Roman");
-        docAddres.setSurname("Testowy");
         docAddres.setCity("Kraków");
         docAddres.setStreet("ul. Nowa 32");
         docAddres.setCode("33-302");
         Address savedDocAddr = addressRepo.save(docAddres);
 
         Address patientAddr = new Address();
-        patientAddr.setName("Patient");
-        patientAddr.setSurname("Sick");
         patientAddr.setCity("PATIENT CITY");
         patientAddr.setStreet("ul. Nowa 32");
         patientAddr.setCode("33-302");
@@ -80,7 +76,6 @@ public class Bootstrap implements CommandLineRunner {
         Contact savedContact = contactRepo.save(contact);
 
         Patient patient = new Patient();
-        patient.setAddress(savedPatientAddr);
         patient.setEmail("email@email.pl");
         patient.setTelephoneNumber("782732721");
         Patient savedPatient = patientRepo.save(patient);
@@ -91,8 +86,8 @@ public class Bootstrap implements CommandLineRunner {
         office.setContact(savedContact);
         office.setAddress(savedDocAddr);
         office.setPrice(100);
-        office.setStartWorkAt(Time.valueOf(LocalTime.of(8, 16)));
-        office.setFinishWorkAt(Time.valueOf(LocalTime.of(8, 16)));
+        office.setStartWorkAt(Time.valueOf(LocalTime.of(8, 0)));
+        office.setFinishWorkAt(Time.valueOf(LocalTime.of(16, 0)));
         office.setOneVisitDuration(30);
         Office savedOffice = officeRepo.save(office);
         savedOffice.setOwner(userRepository.findByUsername("test").orElseThrow());

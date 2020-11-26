@@ -27,8 +27,8 @@ import java.time.LocalTime;
     @FutureOrPresent
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate date;
-   @JsonDeserialize(using = LocalTimeDeserializer.class)
 
+    @JsonDeserialize(using = LocalTimeDeserializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     private LocalTime startTime;
 

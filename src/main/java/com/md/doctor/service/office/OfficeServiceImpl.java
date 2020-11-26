@@ -1,6 +1,7 @@
 package com.md.doctor.service.office;
 
 import com.md.doctor.dto.office.GetOfficeDto;
+import com.md.doctor.dto.office.OfficeDetails;
 import com.md.doctor.dto.office.OfficeDto;
 import com.md.doctor.exception.EntityNotFoundException;
 import com.md.doctor.mapper.AddressMapper;
@@ -15,6 +16,7 @@ import com.md.doctor.repository.OfficeRepo;
 import com.md.doctor.repository.SpecializationRepo;
 import com.md.doctor.service.doctor.DoctorService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +30,7 @@ import java.util.List;
 import static com.md.doctor.exception.EntityNotFoundExceptionMessage.OFFICE_NOT_FOUND;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class OfficeServiceImpl implements OfficeService {
     private final OfficeRepo officeRepository;
@@ -85,6 +88,7 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     public Page<GetOfficeDto> findByNameOrSurnameAndCityAndSpecialization(String name, String city, Long specializationId, Pageable pageable) {
+        System.err.println(name + " " + city + " " + specializationId);
         return officeRepository.
                 getOffices(city, name, specializationId, pageable)
                 .map(office ->
@@ -95,9 +99,9 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
-    public OfficeDto getById(Long id) {
+    public OfficeDetails getById(Long id) {
         return officeRepository.findById(id)
-                .map(office -> officeMapper.mapToOfficeDto(office))
+                .map(office -> officeMapper.mapToOfficeDetails(office))
                 .orElseThrow(() -> new EntityNotFoundException(OFFICE_NOT_FOUND(id)));
     }
 }

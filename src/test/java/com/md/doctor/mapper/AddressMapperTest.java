@@ -5,7 +5,8 @@ import com.md.doctor.models.Address;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AddressMapperTest {
     private static Long ID = 1L;
@@ -20,15 +21,13 @@ class AddressMapperTest {
     @Test
     void mapAddressDtoToAddress() {
         //given
-        AddressDto addressDto = new AddressDto(ID,NAME,SURNAME,STREET,CODE,CITY);
+        AddressDto addressDto = new AddressDto(ID, STREET, CODE, CITY);
 
         //when
         Address address = addressMapper.mapAddressDtoToAddress(addressDto);
 
         //then
         assertAll(
-                () -> assertEquals(NAME, address.getName()),
-                () -> assertEquals(SURNAME, address.getSurname()),
                 () -> assertEquals(STREET, address.getStreet()),
                 () -> assertEquals(CODE, address.getCode()),
                 () -> assertEquals(CITY, address.getCity())
@@ -38,15 +37,13 @@ class AddressMapperTest {
     @Test
     void mapAddressToAddressDto() {
         //given
-        Address address = new Address(ID, NAME,SURNAME,STREET,CODE,CITY);
+        Address address = new Address(ID, STREET, CODE, CITY);
 
         //when
         AddressDto addressDto = addressMapper.mapAddressToAddressDto(address);
 
         //then
         assertAll(
-                () -> assertEquals(NAME, addressDto.getName()),
-                () -> assertEquals(SURNAME, addressDto.getSurname()),
                 () -> assertEquals(STREET, addressDto.getStreet()),
                 () -> assertEquals(CODE, addressDto.getCode()),
                 () -> assertEquals(CITY, addressDto.getCity())

@@ -5,9 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
-import com.md.doctor.dto.address.AddDoctorDto;
 import com.md.doctor.dto.address.AddressDto;
 import com.md.doctor.dto.contact.ContactDto;
+import com.md.doctor.dto.doctor.AddDoctorDto;
 import com.md.doctor.dto.doctor.GetDoctorDto;
 import com.md.doctor.dto.office.OfficeDto;
 import com.md.doctor.dto.patient.PatientDto;
@@ -45,11 +45,11 @@ public class TestResource {
     public static final Page<Doctor> DOCTOR_PAGE = new PageImpl<>(Collections.singletonList(DOCTOR), PAGEABLE, 3);
     public static final GetDoctorDto DOCTOR_DTO = new GetDoctorDto(ID, NAME, SURNAME, null);
     public static final AddDoctorDto ADD_DOCTOR_DTO = new AddDoctorDto(NAME, SURNAME, null);
-    public static final Address ADDRESS = new Address(ID, NAME, SURNAME, STREET, CODE, CITY);
+    public static final Address ADDRESS = new Address(ID, STREET, CODE, CITY);
 
 
     public static final Page<GetDoctorDto> EXPECTED_PAGE = new PageImpl<>(Collections.singletonList(DOCTOR_DTO), PAGEABLE, 3);
-    public static final Patient PATIENT = new Patient(ID, EMAIL, TEL_NUMBER, ADDRESS, new Reservation());
+    public static final Patient PATIENT = new Patient(ID, NAME, SURNAME, EMAIL, TEL_NUMBER, new Reservation());
     public static final Contact CONTACT = new Contact(ID, TEL_NUMBER, EMAIL);
     public static final LocalDate DATE = LocalDate.now().plusYears(1);
     @JsonFormat(pattern = "MM:hh")
@@ -66,9 +66,8 @@ public class TestResource {
     public static final int VISIT_DURATION = 30;
 
 
-
-    public static final AddressDto ADDRESS_DTO = new AddressDto(ID, NAME, SURNAME, STREET, CODE, CITY);
-    public static final PatientDto PATIENT_DTO = new PatientDto(ID,EMAIL,TEL_NUMBER,ADDRESS_DTO);
+    public static final AddressDto ADDRESS_DTO = new AddressDto(ID, STREET, CODE, CITY);
+    public static final PatientDto PATIENT_DTO = new PatientDto(ID, NAME, SURNAME, EMAIL, TEL_NUMBER);
     public static final ContactDto CONTACT_DTO = new ContactDto(ID, TEL_NUMBER, EMAIL);
     public static final OfficeDto OFFICE_DTO = new OfficeDto(ID, DOCTOR_DTO, CONTACT_DTO, ADDRESS_DTO, new HashSet<>(), new User(),PRICE, START_WORK_TIME, END_WORK_TIME, VISIT_DURATION);
     public static final Office OFFICE = new Office(ID, DOCTOR, CONTACT, ADDRESS, new HashSet<>(), new User(), PRICE, Time.valueOf(START_WORK_TIME), Time.valueOf(END_WORK_TIME), VISIT_DURATION);

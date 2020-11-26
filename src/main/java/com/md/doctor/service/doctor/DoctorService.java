@@ -1,6 +1,6 @@
 package com.md.doctor.service.doctor;
 
-import com.md.doctor.dto.address.AddDoctorDto;
+import com.md.doctor.dto.doctor.AddDoctorDto;
 import com.md.doctor.dto.doctor.GetDoctorDto;
 import com.md.doctor.dto.doctor.UpdateDoctorNameAndSurnameDto;
 import com.md.doctor.models.Doctor;

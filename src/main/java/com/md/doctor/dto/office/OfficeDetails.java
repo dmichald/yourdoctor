@@ -5,12 +5,18 @@ import com.md.doctor.dto.LocalTimeDeserializer;
 import com.md.doctor.dto.address.AddressDto;
 import com.md.doctor.dto.contact.ContactDto;
 import com.md.doctor.dto.doctor.GetDoctorDto;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalTime;
 
+@NoArgsConstructor
+@Getter
+@Setter
 public class OfficeDetails {
 
     @NotNull

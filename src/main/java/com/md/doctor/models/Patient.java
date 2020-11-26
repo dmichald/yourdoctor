@@ -17,10 +17,11 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
+    private String surname;
     private String email;
     private String telephoneNumber;
-    @OneToOne
-    private Address address;
+
     @OneToOne(mappedBy = "patient")
     private Reservation reservation;
 
@@ -31,13 +32,14 @@ public class Patient {
         Patient patient = (Patient) o;
         return Objects.equals(id, patient.id) &&
                 Objects.equals(email, patient.email) &&
+                Objects.equals(name, patient.name) &&
+                Objects.equals(surname, patient.surname) &&
                 Objects.equals(telephoneNumber, patient.telephoneNumber) &&
-                Objects.equals(address, patient.address) &&
                 Objects.equals(reservation, patient.reservation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, telephoneNumber, address, reservation);
+        return Objects.hash(id, email, telephoneNumber, reservation, name, surname);
     }
 }

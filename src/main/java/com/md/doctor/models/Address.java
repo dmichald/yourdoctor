@@ -20,8 +20,6 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String surname;
     private String street;
     private String code;
     private String city;
@@ -32,8 +30,6 @@ public class Address {
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
         return id.equals(address.id) &&
-                Objects.equals(name, address.name) &&
-                Objects.equals(surname, address.surname) &&
                 Objects.equals(street, address.street) &&
                 Objects.equals(code, address.code) &&
                 Objects.equals(city, address.city);
@@ -41,6 +37,6 @@ public class Address {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, street, code, city);
+        return Objects.hash(id, street, code, city);
     }
 }

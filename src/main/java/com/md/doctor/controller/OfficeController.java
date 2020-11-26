@@ -1,7 +1,7 @@
 package com.md.doctor.controller;
 
 import com.md.doctor.dto.office.GetOfficeDto;
-import com.md.doctor.dto.office.OfficeDto;
+import com.md.doctor.dto.office.OfficeDetails;
 import com.md.doctor.service.office.OfficeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,12 +21,12 @@ public class OfficeController {
     }
 
     @GetMapping("/offices")
-    Page<GetOfficeDto> filterOffices(@RequestParam(required = false) String name, @RequestParam(required = false) String city, @RequestParam Long specializationId, Pageable pageable) {
+    Page<GetOfficeDto> filterOffices(@RequestParam(required = false) String name, @RequestParam(required = false) String city, @RequestParam(required = false) Long specializationId, Pageable pageable) {
         return officeService.findByNameOrSurnameAndCityAndSpecialization(name, city, specializationId, pageable);
     }
 
     @GetMapping("/offices/{id}")
-    OfficeDto getOfficeById(@PathVariable Long id) {
+    OfficeDetails getOfficeById(@PathVariable Long id) {
         return officeService.getById(id);
     }
 }

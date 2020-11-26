@@ -1,6 +1,7 @@
 package com.md.doctor.service.office;
 
 import com.md.doctor.dto.office.GetOfficeDto;
+import com.md.doctor.dto.office.OfficeDetails;
 import com.md.doctor.dto.office.OfficeDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,6 @@ public interface OfficeService {
 
     Page<GetOfficeDto> findByNameOrSurnameAndCityAndSpecialization(String name, String city, Long specializationId, Pageable pageable);
 
-    OfficeDto getById(Long id);
+    OfficeDetails getById(Long id);
 
 }

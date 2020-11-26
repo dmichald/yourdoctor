@@ -1,4 +1,4 @@
-package com.md.doctor.dto.address;
+package com.md.doctor.dto.doctor;
 
 import com.md.doctor.dto.specilalization.SpecializationDto;
 import lombok.AllArgsConstructor;

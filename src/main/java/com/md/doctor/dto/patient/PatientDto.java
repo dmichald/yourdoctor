@@ -1,11 +1,12 @@
 package com.md.doctor.dto.patient;
 
-import com.md.doctor.dto.address.AddressDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
@@ -14,8 +15,21 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class PatientDto {
     private Long id;
-    private String email;
-    private String telephoneNumber;
     @NotNull
-    private AddressDto address;
+    @NotBlank
+    private String name;
+
+    @NotNull
+    @NotBlank
+    private String surname;
+
+    @NotNull
+    @NotBlank
+    @Email
+    private String email;
+
+    @NotNull
+    @NotBlank
+    private String telephoneNumber;
+
 }

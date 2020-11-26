@@ -29,7 +29,7 @@ public class Office {
     private Contact contact;
     @OneToOne
     private Address address;
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER, mappedBy = "office")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY, mappedBy = "office")
     private Set<Reservation> reservations = new HashSet<>();
     @OneToOne
     private User owner;

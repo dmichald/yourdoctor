@@ -1,5 +1,6 @@
 package com.md.doctor.mapper;
 
+import com.md.doctor.dto.office.OfficeDetails;
 import com.md.doctor.dto.office.OfficeDto;
 import com.md.doctor.models.Office;
 import org.mapstruct.Mapper;
@@ -12,6 +13,8 @@ public interface OfficeMapper {
     Office mapToOffice(OfficeDto officeDto);
 
     OfficeDto mapToOfficeDto(Office office);
+
+    OfficeDetails mapToOfficeDetails(Office office);
 
     default LocalTime map(Time time){
         return  time.toLocalTime();
