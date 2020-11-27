@@ -64,7 +64,7 @@ class UserServiceImplTest {
     @Test
     void registerNewUserAccount() {
         //given
-        OfficeContext officeContext = new OfficeContext(new UserDto(), OFFICE_DTO);
+        OfficeContext officeContext = new OfficeContext(OFFICE_DTO, new UserDto());
         //when
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(USER));
         when(userRepository.save(any())).thenReturn(USER);
