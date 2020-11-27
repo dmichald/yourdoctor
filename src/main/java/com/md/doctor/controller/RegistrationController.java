@@ -1,7 +1,7 @@
 package com.md.doctor.controller;
 
+import com.md.doctor.dto.OfficeContext;
 import com.md.doctor.dto.security.ResetPasswordDto;
-import com.md.doctor.dto.security.UserDto;
 import com.md.doctor.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,8 +20,8 @@ public class RegistrationController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/register")
-    void registerNewUserAccount(@RequestBody UserDto userDto) {
-        userService.registerNewUserAccount(userDto);
+    void registerNewUserAccount(@RequestBody OfficeContext officeContext) {
+        userService.registerNewUserAccount(officeContext);
     }
 
     @GetMapping("/confirm")

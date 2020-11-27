@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface OfficeService {
 
-    void saveOffice(OfficeDto officeDto);
+    void saveOffice(OfficeDto officeDto, Long ownerId);
 
     Page<GetOfficeDto> getOfficesByDoctorSpecializationId(Long specializationId, Pageable pageable);
 

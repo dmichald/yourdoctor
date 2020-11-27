@@ -1,5 +1,6 @@
 package com.md.doctor.service.user;
 
+import com.md.doctor.dto.OfficeContext;
 import com.md.doctor.dto.security.ResetPasswordDto;
 import com.md.doctor.dto.security.UserDto;
 import com.md.doctor.exception.EntityNotFoundException;
@@ -13,6 +14,7 @@ import com.md.doctor.repository.RoleRepo;
 import com.md.doctor.repository.UserRepo;
 import com.md.doctor.service.ConfirmationTokenService;
 import com.md.doctor.service.EmailSenderService;
+import com.md.doctor.service.office.OfficeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -37,9 +39,11 @@ public class UserServiceImpl implements UserService {
     private final PasswordResetTokenRepo passwordResetTokenRepository;
     private final EmailSenderService emailSenderService;
     private final ConfirmationTokenService confirmationTokenService;
+    private final OfficeService officeService;
 
     @Override
-    public User registerNewUserAccount(UserDto accountDto) {
+    public User registerNewUserAccount(OfficeContext officeContext) {
+        UserDto accountDto = officeContext.getOwner();
         if (emailExists(accountDto.getEmail())) {
             throw new UserAlreadyExistException("There is an account with that email address: " + accountDto.getEmail());
         }
@@ -50,6 +54,8 @@ public class UserServiceImpl implements UserService {
         user.setEmail(accountDto.getEmail());
         user.setRoles(Collections.singleton(roleRepository.findByName("ROLE_DOCTOR")));
         User savedUser = userRepository.save(user);
+
+        officeService.saveOffice(officeContext.getOffice(), savedUser.getId());
 
         ConfirmationToken confirmationToken = new ConfirmationToken(UUID.randomUUID().toString(), savedUser);
         confirmationTokenService.saveConfirmationToken(confirmationToken);

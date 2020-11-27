@@ -10,17 +10,13 @@ import com.md.doctor.mapper.DoctorMapper;
 import com.md.doctor.mapper.OfficeMapper;
 import com.md.doctor.models.*;
 import com.md.doctor.models.security.User;
-import com.md.doctor.repository.AddressRepo;
-import com.md.doctor.repository.ContactRepo;
-import com.md.doctor.repository.OfficeRepo;
-import com.md.doctor.repository.SpecializationRepo;
+import com.md.doctor.repository.*;
 import com.md.doctor.service.doctor.DoctorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +34,7 @@ public class OfficeServiceImpl implements OfficeService {
     private final ContactRepo contactRepo;
     private final AddressRepo addressRepo;
     private final SpecializationRepo specializationRepo;
+    private final UserRepo userRepository;
 
     private AddressMapper addressMapper = Mappers.getMapper(AddressMapper.class);
     private ContactMapper contactMapper = Mappers.getMapper(ContactMapper.class);
@@ -47,12 +44,13 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     @Transactional
-    public void saveOffice(OfficeDto officeDto) {
+    public void saveOffice(OfficeDto officeDto, Long ownerId) {
 
         Doctor doctor = doctorService.saveDoctor(doctorMapper.mapToAddDoctorDto(officeDto.getDoctor()));
         Contact contact = contactRepo.save(contactMapper.mapToContact(officeDto.getContact()));
         Address address = addressRepo.save(addressMapper.mapAddressDtoToAddress(officeDto.getAddress()));
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findById(ownerId)
+                .orElseThrow(() -> new EntityNotFoundException("USER NOT EXIST"));
 
         Office office = new Office();
         office.setOwner(user);

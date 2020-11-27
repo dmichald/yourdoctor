@@ -1,6 +1,5 @@
 package com.md.doctor.service.office;
 
-import com.md.doctor.TestResource;
 import com.md.doctor.models.security.User;
 import com.md.doctor.repository.*;
 import com.md.doctor.service.doctor.DoctorService;
@@ -11,11 +10,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.Optional;
 
+import static com.md.doctor.TestResource.OFFICE_DTO;
+import static com.md.doctor.TestResource.USER;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -39,6 +40,9 @@ class OfficeServiceImplTest {
     @MockBean
     private SpecializationRepo specializationRepo;
 
+    @MockBean
+    private UserRepo userRepository;
+
 
     private  OfficeService officeService;
 
@@ -48,7 +52,8 @@ class OfficeServiceImplTest {
                 doctorService,
                 contactRepository,
                 addressRepo,
-                specializationRepo);
+                specializationRepo,
+                userRepository);
     }
 
     @Test
@@ -60,10 +65,8 @@ class OfficeServiceImplTest {
         SecurityContext securityContext = mock(SecurityContext.class);
 
         //when
-        when(securityContext.getAuthentication()).thenReturn(authentication);
-        SecurityContextHolder.setContext(securityContext);
-        when(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(applicationUser);
-        officeService.saveOffice(TestResource.OFFICE_DTO);
+        when(userRepository.findById(1L)).thenReturn(Optional.of(USER));
+        officeService.saveOffice(OFFICE_DTO, 1L);
 
         //then
         verify(officeRepository,times(1)).save(any());

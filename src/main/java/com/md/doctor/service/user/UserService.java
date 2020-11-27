@@ -1,11 +1,11 @@
 package com.md.doctor.service.user;
 
+import com.md.doctor.dto.OfficeContext;
 import com.md.doctor.dto.security.ResetPasswordDto;
-import com.md.doctor.dto.security.UserDto;
 import com.md.doctor.models.security.User;
 
 public interface UserService {
-    User registerNewUserAccount(UserDto accountDto);
+    User registerNewUserAccount(OfficeContext officeContext);
 
     void deleteUser(User user);
 

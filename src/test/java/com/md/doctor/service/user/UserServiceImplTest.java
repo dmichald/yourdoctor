@@ -1,5 +1,6 @@
 package com.md.doctor.service.user;
 
+import com.md.doctor.dto.OfficeContext;
 import com.md.doctor.dto.security.UserDto;
 import com.md.doctor.models.security.ConfirmationToken;
 import com.md.doctor.models.security.User;
@@ -9,6 +10,7 @@ import com.md.doctor.repository.RoleRepo;
 import com.md.doctor.repository.UserRepo;
 import com.md.doctor.service.ConfirmationTokenService;
 import com.md.doctor.service.EmailSenderService;
+import com.md.doctor.service.office.OfficeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,6 +44,9 @@ class UserServiceImplTest {
     private PasswordResetTokenRepo passwordResetTokenRepository;
 
     @MockBean
+    private OfficeService officeService;
+
+    @MockBean
     private EmailSenderService emailSenderService;
     private ConfirmationTokenService confirmationTokenService;
     @MockBean
@@ -53,14 +58,17 @@ class UserServiceImplTest {
     void setUp() {
         confirmationTokenService = new ConfirmationTokenService(confirmationTokenRepository);
         userService = new UserServiceImpl(userRepository, roleRepository, passwordEncoder, confirmationTokenRepository,
-                passwordResetTokenRepository, emailSenderService, confirmationTokenService);
+                passwordResetTokenRepository, emailSenderService, confirmationTokenService, officeService);
     }
 
     @Test
     void registerNewUserAccount() {
+        //given
+        OfficeContext officeContext = new OfficeContext(new UserDto(), OFFICE_DTO);
         //when
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(USER));
-        userService.registerNewUserAccount(new UserDto());
+        when(userRepository.save(any())).thenReturn(USER);
+        userService.registerNewUserAccount(officeContext);
 
         //then
         verify(emailSenderService, times(1)).sendEmail(any());
