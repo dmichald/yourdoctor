@@ -87,10 +87,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     private void addSpecializations(AddDoctorDto doctorDto, Doctor doctor) {
         if(doctorDto.getSpecializationSet() != null && !doctorDto.getSpecializationSet().isEmpty()){
-            doctorDto.getSpecializationSet().forEach(specializationDto ->
-                    doctor.addSpecialization(
-                            getSpecialization(specializationDto.getId()))
-            );
+            doctorDto.getSpecializationSet().forEach(specId -> doctor.addSpecialization(getSpecialization(specId)));
         }
     }
 

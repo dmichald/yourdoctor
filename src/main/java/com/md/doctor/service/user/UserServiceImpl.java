@@ -44,14 +44,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User registerNewUserAccount(OfficeContext officeContext) {
         UserDto accountDto = officeContext.getOwner();
-        if (emailExists(accountDto.getEmail())) {
-            throw new UserAlreadyExistException("There is an account with that email address: " + accountDto.getEmail());
+        if (emailExists(accountDto.getUsername())) {
+            throw new UserAlreadyExistException("There is an account with that email address: " + accountDto.getUsername());
         }
         final User user = new User();
 
         user.setUsername(accountDto.getUsername());
         user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
-        user.setEmail(accountDto.getEmail());
+        user.setEmail(accountDto.getUsername());
         user.setRoles(Collections.singleton(roleRepository.findByName("ROLE_DOCTOR")));
         User savedUser = userRepository.save(user);
 
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
         ConfirmationToken confirmationToken = new ConfirmationToken(UUID.randomUUID().toString(), savedUser);
         confirmationTokenService.saveConfirmationToken(confirmationToken);
-        sendConfirmationEmail(accountDto.getEmail(), confirmationToken.getToken());
+        sendConfirmationEmail(accountDto.getUsername(), confirmationToken.getToken());
 
         return savedUser;
     }

@@ -1,8 +1,8 @@
 package com.md.doctor.service.office;
 
+import com.md.doctor.dto.office.AddOfficeDto;
 import com.md.doctor.dto.office.GetOfficeDto;
 import com.md.doctor.dto.office.OfficeDetails;
-import com.md.doctor.dto.office.OfficeDto;
 import com.md.doctor.exception.EntityNotFoundException;
 import com.md.doctor.mapper.AddressMapper;
 import com.md.doctor.mapper.ContactMapper;
@@ -44,9 +44,9 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     @Transactional
-    public void saveOffice(OfficeDto officeDto, Long ownerId) {
+    public void saveOffice(AddOfficeDto officeDto, Long ownerId) {
 
-        Doctor doctor = doctorService.saveDoctor(doctorMapper.mapToAddDoctorDto(officeDto.getDoctor()));
+        Doctor doctor = doctorService.saveDoctor(officeDto.getDoctor());
         Contact contact = contactRepo.save(contactMapper.mapToContact(officeDto.getContact()));
         Address address = addressRepo.save(addressMapper.mapAddressDtoToAddress(officeDto.getAddress()));
         User user = userRepository.findById(ownerId)
@@ -86,7 +86,6 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     public Page<GetOfficeDto> findByNameOrSurnameAndCityAndSpecialization(String name, String city, Long specializationId, Pageable pageable) {
-        System.err.println(name + " " + city + " " + specializationId);
         return officeRepository.
                 getOffices(city, name, specializationId, pageable)
                 .map(office ->

@@ -1,5 +1,6 @@
 package com.md.doctor.service.office;
 
+import com.md.doctor.dto.office.AddOfficeDto;
 import com.md.doctor.models.security.User;
 import com.md.doctor.repository.*;
 import com.md.doctor.service.doctor.DoctorService;
@@ -66,7 +67,7 @@ class OfficeServiceImplTest {
 
         //when
         when(userRepository.findById(1L)).thenReturn(Optional.of(USER));
-        officeService.saveOffice(OFFICE_DTO, 1L);
+        officeService.saveOffice(new AddOfficeDto(), 1L);
 
         //then
         verify(officeRepository,times(1)).save(any());

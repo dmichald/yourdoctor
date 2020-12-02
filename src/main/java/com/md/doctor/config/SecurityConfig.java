@@ -56,6 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/", "/webjars/**", "/resources/**", "/register", "/confirm", "/login").permitAll()
                 .antMatchers("/specializations", "/offices/**","/reset-password").permitAll()
+                .antMatchers("/secure").permitAll()
+                // .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/doctors/**").hasRole("DOCTOR")
                 .anyRequest()
                 .authenticated();
@@ -63,6 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.headers().frameOptions().sameOrigin();
 
+        http.cors();
     }
 
 

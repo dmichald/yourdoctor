@@ -1,6 +1,5 @@
 package com.md.doctor.dto.doctor;
 
-import com.md.doctor.dto.specilalization.SpecializationDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,5 +25,5 @@ public class AddDoctorDto {
     @NotNull
     private String surname;
 
-    private Set<SpecializationDto> specializationSet = new HashSet<>();
+    private Set<Long> specializationSet = new HashSet<>();
 }

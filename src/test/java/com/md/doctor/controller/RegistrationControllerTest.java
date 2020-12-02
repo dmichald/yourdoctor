@@ -35,7 +35,6 @@ class RegistrationControllerTest {
     void registerNewUserAccount() throws Exception {
         //given
         UserDto userDto = UserDto.builder()
-                .email(EMAIL)
                 .username(USERNAME)
                 .password(PASSWORD)
                 .matchingPassword(PASSWORD)

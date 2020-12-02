@@ -30,7 +30,7 @@ import java.util.UUID;
 
 public class TestResource {
     public static final Pageable PAGEABLE = PageRequest.of(0, 5);
-    public static final String USERNAME = "Username";
+    public static final String USERNAME = "usernam@gmail.com";
     public static final String PASSWORD = "Password";
     public static final Long ID = 1L;
     public static final String NAME = "Jan";

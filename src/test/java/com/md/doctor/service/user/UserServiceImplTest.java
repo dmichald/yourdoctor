@@ -1,6 +1,7 @@
 package com.md.doctor.service.user;
 
 import com.md.doctor.dto.OfficeContext;
+import com.md.doctor.dto.office.AddOfficeDto;
 import com.md.doctor.dto.security.UserDto;
 import com.md.doctor.models.security.ConfirmationToken;
 import com.md.doctor.models.security.User;
@@ -64,7 +65,7 @@ class UserServiceImplTest {
     @Test
     void registerNewUserAccount() {
         //given
-        OfficeContext officeContext = new OfficeContext(OFFICE_DTO, new UserDto());
+        OfficeContext officeContext = new OfficeContext(new AddOfficeDto(), new UserDto());
         //when
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(USER));
         when(userRepository.save(any())).thenReturn(USER);

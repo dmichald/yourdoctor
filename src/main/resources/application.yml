@@ -10,15 +10,11 @@ spring:
     port: 587
     username: "yourdoctor.noreply@gmail.com"
     password: "TwojDoktor1234"
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-          connectiontimeout: 5000
-          timeout: 3000
-          writetimeout: 5000
+    protocol: smtp
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
+      ssl.trust: smtp.gmail.com
 
 ##########JWT##########
 jwt:

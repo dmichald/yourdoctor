@@ -3,12 +3,14 @@ package com.md.doctor.controller;
 import com.md.doctor.dto.specilalization.SpecializationDto;
 import com.md.doctor.dto.specilalization.SpecializationListDto;
 import com.md.doctor.repository.SpecializationRepo;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "*")
+
 @RestController
 @RequestMapping("/specializations")
 public class SpecializationController {
