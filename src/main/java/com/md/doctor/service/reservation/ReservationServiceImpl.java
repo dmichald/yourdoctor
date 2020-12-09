@@ -10,6 +10,7 @@ import com.md.doctor.models.Reservation;
 import com.md.doctor.repository.OfficeRepo;
 import com.md.doctor.repository.PatientRepo;
 import com.md.doctor.repository.ReservationRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,14 +18,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.md.doctor.exception.EntityNotFoundExceptionMessage.OFFICE_NOT_FOUND;
 import static com.md.doctor.exception.EntityNotFoundExceptionMessage.RESERVATION_NOT_FOUND;
 
 @Service
+@Slf4j
 public class ReservationServiceImpl implements ReservationService {
     private final ReservationRepo reservationRepository;
     private final OfficeRepo officeRepository;
@@ -54,7 +57,8 @@ public class ReservationServiceImpl implements ReservationService {
 
         reservation.addPatient(patient);
 
-        reservationRepository.save(reservation);
+        Reservation saved = reservationRepository.save(reservation);
+        log.debug("Saved reservation with id: " + saved.getId());
     }
 
 
@@ -87,8 +91,47 @@ public class ReservationServiceImpl implements ReservationService {
             }
         });
 
+        ArrayList<String> toRemove = new ArrayList<>();
+        if (date.toLocalDate().equals(LocalDate.now())) {
+            LocalTime now = LocalTime.now();
+            log.debug("IN");
+            for (String freeHour : freeHours) {
+                String[] split = freeHour.split(":");
+                LocalTime hour = LocalTime.of(Integer.parseInt(split[0]), Integer.parseInt(split[1]));
+
+                if (hour.isBefore(now)) {
+                    log.debug("REMOVED " + freeHour);
+                    log.debug(freeHours.toString());
+
+                    toRemove.add(freeHour);
+                }
+            }
+            freeHours.removeAll(toRemove);
+        }
+
+
 
         return freeHours;
+    }
+
+    @Override
+    public Map<LocalDate, List<ReservationDto>> getReservationFromTo(LocalDate from, int to, Long officeId) {
+        Date fromSqlDate = Date.valueOf(from);
+        Date endDate = Date.valueOf(from.plusDays(to));
+        List<ReservationDto> reservationDtoList = reservationRepository.findAllByDateBetweenAndOffice(fromSqlDate, endDate, getOffice(officeId))
+                .stream()
+                .map(reservationMapper::mapToReservationDto)
+                .collect(Collectors.toList());
+
+        Map<LocalDate, List<ReservationDto>> unsoretdMap = reservationDtoList.stream()
+                .collect(Collectors.groupingBy(ReservationDto::getDate));
+
+        //sort lists in map
+        unsoretdMap.values().forEach(list -> list.sort(Comparator.comparing(ReservationDto::getStartTime)));
+
+        //return sorted map (asc)
+        return new TreeMap<>(unsoretdMap);
+
     }
 
 

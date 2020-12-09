@@ -23,5 +23,8 @@ public class EntityNotFoundExceptionMessage {
     public static String SPECIALIZATION_NOT_FOUND(Long id) {
         return "SPECIALIZATION NOT FOUND. ID: " + id;
     }
+    public static String USER_NOT_FOUND(Long id) {
+        return "USER NOT FOUND. ID: " + id;
+    }
 
 }

@@ -4,6 +4,7 @@ import com.md.doctor.dto.office.AddOfficeDto;
 import com.md.doctor.dto.office.GetOfficeDto;
 import com.md.doctor.dto.office.OfficeDetails;
 import com.md.doctor.exception.EntityNotFoundException;
+import com.md.doctor.exception.EntityNotFoundExceptionMessage;
 import com.md.doctor.mapper.AddressMapper;
 import com.md.doctor.mapper.ContactMapper;
 import com.md.doctor.mapper.DoctorMapper;
@@ -50,7 +51,7 @@ public class OfficeServiceImpl implements OfficeService {
         Contact contact = contactRepo.save(contactMapper.mapToContact(officeDto.getContact()));
         Address address = addressRepo.save(addressMapper.mapAddressDtoToAddress(officeDto.getAddress()));
         User user = userRepository.findById(ownerId)
-                .orElseThrow(() -> new EntityNotFoundException("USER NOT EXIST"));
+                .orElseThrow(() -> new EntityNotFoundException(EntityNotFoundExceptionMessage.USER_NOT_FOUND(ownerId)));
 
         Office office = new Office();
         office.setOwner(user);
@@ -61,14 +62,16 @@ public class OfficeServiceImpl implements OfficeService {
         office.setStartWorkAt(Time.valueOf(officeDto.getStartWorkAt()));
         office.setFinishWorkAt(Time.valueOf(officeDto.getFinishWorkAt()));
         office.setPrice(officeDto.getPrice());
-        officeRepository.save(office);
+
+        Office saved = officeRepository.save(office);
+        log.debug("Saved office with id: " + saved.getId());
 
     }
 
     @Override
     public Page<GetOfficeDto> getOfficesByDoctorSpecializationId(Long specializationId, Pageable pageable) {
         Specialization specialization = specializationRepo.findById(specializationId)
-                .orElseThrow(() -> new EntityNotFoundException("SPECIALIZATION WITH GIVEN ID NOT EXIST. ID: " + specializationId));
+                .orElseThrow(() -> new EntityNotFoundException(EntityNotFoundExceptionMessage.SPECIALIZATION_NOT_FOUND(specializationId)));
 
 
         return officeRepository.findAllByDoctor_Specializations(specialization, pageable)

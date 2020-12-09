@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -26,6 +28,18 @@ public class ReservationController {
         var hours = reservationService.getFreeReservationsHours(date, officeId);
         return new ListHoursWrapper(hours);
     }
+
+    @GetMapping("/offices/{officeId}/reservations")
+    Map<LocalDate, List<ReservationDto>> getReservationFromTo(@RequestParam Date start, @RequestParam Integer offset, @RequestParam Long officeId) {
+        return reservationService.getReservationFromTo(start.toLocalDate(), offset, officeId);
+    }
+
+    @PutMapping("/reservations")
+    void cancelReservation(@RequestParam Long id) {
+        reservationService.cancelReservation(id);
+    }
+
+
 }
 
 @NoArgsConstructor

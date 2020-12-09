@@ -5,6 +5,7 @@ import com.md.doctor.exception.EntityNotFoundException;
 import com.md.doctor.mapper.ContactMapper;
 import com.md.doctor.models.Contact;
 import com.md.doctor.repository.ContactRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static com.md.doctor.exception.EntityNotFoundExceptionMessage.CONTACT_NOT_FOUND;
 
 @Service
+@Slf4j
 public class ContactServiceImpl implements ContactService {
 
     private ContactMapper contactMapper = Mappers.getMapper(ContactMapper.class);
@@ -26,8 +28,8 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public void saveContact(ContactDto contactDto) {
-        contactRepository.save(contactMapper.mapToContact(contactDto));
-
+        Contact contact = contactRepository.save(contactMapper.mapToContact(contactDto));
+        log.debug("Added contact with id: " + contact.getId());
     }
 
     @Override
@@ -44,5 +46,6 @@ public class ContactServiceImpl implements ContactService {
                 .orElseThrow(() -> new EntityNotFoundException(CONTACT_NOT_FOUND(contactDto.getId())));
 
         BeanUtils.copyProperties(contactDto, contact);
+        log.debug("Updated contact with id: " + contact.getId());
     }
 }

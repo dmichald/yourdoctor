@@ -1,5 +1,7 @@
 package com.md.doctor.service.reservation;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.md.doctor.TestResource;
 import com.md.doctor.dto.reseravtion.ReservationDto;
 import com.md.doctor.mapper.PatientMapper;
 import com.md.doctor.mapper.ReservationMapper;
@@ -18,7 +20,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static com.md.doctor.TestResource.*;
@@ -100,6 +104,24 @@ class ReservationServiceImplTest {
         reservations().forEach(reservation -> assertFalse(hours.contains(reservation.getStartTime().toString())));
     }
 
+    @Test
+    void getReservationsFromTest() {
+        //given
+        Date start = Date.valueOf(DATE);
+        Date end = Date.valueOf(DATE.plusDays(2));
+
+        //when
+        when(reservationRepository.findAllByDateBetweenAndOffice(start, end, OFFICE)).thenReturn(reservations());
+        when(officeRepository.findById(ID)).thenReturn(Optional.of(OFFICE));
+
+
+        Map<LocalDate, List<ReservationDto>> result = reservationService.getReservationFromTo(DATE, 2, 1L);
+
+        verify(reservationRepository, times(1)).findAllByDateBetweenAndOffice(start,end,OFFICE);
+        assertEquals(2, result.keySet().size());
+
+    }
+
     private List<Time> hours() {
         return List.of(
                 Time.valueOf("09:00:00"),
@@ -116,7 +138,7 @@ class ReservationServiceImplTest {
                 new Reservation(2L, OFFICE, PATIENT, Date.valueOf(DATE), hours().get(1), Date.valueOf(DATE), false),
                 new Reservation(3L, OFFICE, PATIENT, Date.valueOf(DATE), hours().get(2), Date.valueOf(DATE), false),
                 new Reservation(4L, OFFICE, PATIENT, Date.valueOf(DATE), hours().get(3), Date.valueOf(DATE), false),
-                new Reservation(5L, OFFICE, PATIENT, Date.valueOf(DATE), hours().get(4), Date.valueOf(DATE), false)
+                new Reservation(5L, OFFICE, PATIENT, Date.valueOf(DATE.plusDays(1)), hours().get(4), Date.valueOf(DATE), false)
         );
     }
 

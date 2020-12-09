@@ -10,6 +10,7 @@ import com.md.doctor.models.Specialization;
 import com.md.doctor.repository.DoctorRepo;
 import com.md.doctor.repository.SpecializationRepo;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +22,7 @@ import static com.md.doctor.exception.EntityNotFoundExceptionMessage.SPECIALIZAT
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class DoctorServiceImpl implements DoctorService {
 
     private final DoctorRepo doctorRepository;
@@ -54,9 +56,11 @@ public class DoctorServiceImpl implements DoctorService {
         Doctor doctor = new Doctor();
         doctor.setName(doctorDto.getName());
         doctor.setSurname(doctorDto.getSurname());
-
         addSpecializations(doctorDto, doctor);
-        return doctorRepository.save(doctor);
+        Doctor saved = doctorRepository.save(doctor);
+
+        log.debug("Saved doctor with id: " + saved.getId());
+        return saved;
     }
 
     @Override
@@ -65,6 +69,7 @@ public class DoctorServiceImpl implements DoctorService {
         Doctor doctor = getDoctor(doctorId);
         Specialization specialization = getSpecialization(specializationId);
         doctor.addSpecialization(specialization);
+        log.debug("Added specialization: " + specialization.getName() + " to doctor with id: " + doctorId);
     }
 
     @Transactional
@@ -73,6 +78,8 @@ public class DoctorServiceImpl implements DoctorService {
         Doctor doctor = getDoctor(doctorId);
         Specialization specialization = getSpecialization(specializationId);
         doctor.removeSpecialization(specialization);
+
+        log.debug("Removed specialization: " + specialization.getName() + " from doctor with id: " + doctorId);
     }
 
     @Transactional
@@ -81,6 +88,8 @@ public class DoctorServiceImpl implements DoctorService {
         Doctor doc = getDoctor(id);
         doc.setName(doctor.getName());
         doc.setSurname(doctor.getSurname());
+
+        log.debug("Updated doctor name and surname. Doctor id: " + doc.getId());
         return doc;
     }
 

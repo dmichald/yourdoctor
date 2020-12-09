@@ -1,6 +1,7 @@
 package com.md.doctor.service.user;
 
 import com.md.doctor.dto.OfficeContext;
+import com.md.doctor.dto.office.AddOfficeDto;
 import com.md.doctor.dto.security.ResetPasswordDto;
 import com.md.doctor.dto.security.UserDto;
 import com.md.doctor.exception.EntityNotFoundException;
@@ -43,30 +44,44 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User registerNewUserAccount(OfficeContext officeContext) {
-        UserDto accountDto = officeContext.getOwner();
-        if (emailExists(accountDto.getUsername())) {
-            throw new UserAlreadyExistException("There is an account with that email address: " + accountDto.getUsername());
-        }
-        final User user = new User();
-
-        user.setUsername(accountDto.getUsername());
-        user.setPassword(passwordEncoder.encode(accountDto.getPassword()));
-        user.setEmail(accountDto.getUsername());
-        user.setRoles(Collections.singleton(roleRepository.findByName("ROLE_DOCTOR")));
-        User savedUser = userRepository.save(user);
-
-        officeService.saveOffice(officeContext.getOffice(), savedUser.getId());
-
-        ConfirmationToken confirmationToken = new ConfirmationToken(UUID.randomUUID().toString(), savedUser);
-        confirmationTokenService.saveConfirmationToken(confirmationToken);
-        sendConfirmationEmail(accountDto.getUsername(), confirmationToken.getToken());
+        UserDto userDto = officeContext.getOwner();
+        validateEmail(userDto.getUsername());
+        User savedUser = createNewUser(userDto);
+        createNewOffice(officeContext.getOffice(), savedUser);
+        sendConfirmationEmail(userDto.getUsername(), createConfirmationToken(savedUser).getToken());
 
         return savedUser;
+    }
+
+    private void validateEmail(String email) {
+        if (emailExists(email)) {
+            throw new UserAlreadyExistException("There is an account with that email address: " + email);
+        }
     }
 
     private boolean emailExists(final String email) {
         return userRepository.findByEmail(email).isPresent();
     }
+
+    private User createNewUser(UserDto userDto) {
+        final User user = new User();
+        user.setUsername(userDto.getUsername());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setEmail(userDto.getUsername());
+        user.setRoles(Collections.singleton(roleRepository.findByName("ROLE_DOCTOR")));
+        return userRepository.save(user);
+    }
+
+    private void createNewOffice(AddOfficeDto officeDto, User owner) {
+        officeService.saveOffice(officeDto, owner.getId());
+    }
+
+    private ConfirmationToken createConfirmationToken(User savedUser) {
+        ConfirmationToken confirmationToken = new ConfirmationToken(UUID.randomUUID().toString(), savedUser);
+        return confirmationTokenService.saveConfirmationToken(confirmationToken);
+    }
+
+
 
 
     @Override
