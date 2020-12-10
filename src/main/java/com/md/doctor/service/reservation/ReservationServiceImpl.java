@@ -10,8 +10,10 @@ import com.md.doctor.models.Reservation;
 import com.md.doctor.repository.OfficeRepo;
 import com.md.doctor.repository.PatientRepo;
 import com.md.doctor.repository.ReservationRepo;
+import com.md.doctor.service.EmailSenderService;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,15 +34,17 @@ public class ReservationServiceImpl implements ReservationService {
     private final ReservationRepo reservationRepository;
     private final OfficeRepo officeRepository;
     private final PatientRepo patientRepository;
+    private final EmailSenderService emailSenderService;
     private static final PatientMapper patientMapper = Mappers.getMapper(PatientMapper.class);
     private static final ReservationMapper reservationMapper = Mappers.getMapper(ReservationMapper.class);
 
     public ReservationServiceImpl(ReservationRepo reservationRepository,
                                   OfficeRepo officeRepository,
-                                  PatientRepo patientRepository) {
+                                  PatientRepo patientRepository, EmailSenderService emailSenderService) {
         this.reservationRepository = reservationRepository;
         this.officeRepository = officeRepository;
         this.patientRepository = patientRepository;
+        this.emailSenderService = emailSenderService;
     }
 
     @Transactional
@@ -59,6 +63,22 @@ public class ReservationServiceImpl implements ReservationService {
 
         Reservation saved = reservationRepository.save(reservation);
         log.debug("Saved reservation with id: " + saved.getId());
+        sendEmailWithInfoAboutReservation(patient.getEmail(), saved, office);
+    }
+
+    private void sendEmailWithInfoAboutReservation(String userMail, Reservation reservation, Office office) {
+        String content = "Thanks for reservation. Reservation info: " +
+                "date: " + reservation.getDate().toString() + " time " + reservation.getStartTime() +
+                " doctor: " + office.getDoctor().getName() + " " + office.getDoctor().getSurname() +
+                "address " + office.getAddress().toString();
+
+        final SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(userMail);
+        mailMessage.setSubject("Your reservation");
+        mailMessage.setFrom("<MAIL>");
+        mailMessage.setText(content);
+
+        emailSenderService.sendEmail(mailMessage);
     }
 
 
@@ -91,18 +111,16 @@ public class ReservationServiceImpl implements ReservationService {
             }
         });
 
+        //if current day, delete elapsed hours
         ArrayList<String> toRemove = new ArrayList<>();
         if (date.toLocalDate().equals(LocalDate.now())) {
             LocalTime now = LocalTime.now();
-            log.debug("IN");
             for (String freeHour : freeHours) {
                 String[] split = freeHour.split(":");
                 LocalTime hour = LocalTime.of(Integer.parseInt(split[0]), Integer.parseInt(split[1]));
 
                 if (hour.isBefore(now)) {
-                    log.debug("REMOVED " + freeHour);
                     log.debug(freeHours.toString());
-
                     toRemove.add(freeHour);
                 }
             }

@@ -1,6 +1,9 @@
 package com.md.doctor.service.reservation;
 
 import com.md.doctor.dto.reseravtion.ReservationDto;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import javax.validation.Valid;
 import java.sql.Date;
@@ -14,6 +17,8 @@ public interface ReservationService {
 
     ReservationDto getReservationById(Long id);
 
+    @Secured("ROLE_DOCTOR")
+    @PostAuthorize("@reservationRepo.getOne(#reservationId).office.owner.username == authentication.name")
     void cancelReservation(Long reservationId);
 
     /**

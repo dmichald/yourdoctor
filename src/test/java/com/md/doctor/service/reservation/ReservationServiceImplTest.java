@@ -20,7 +20,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -44,7 +43,7 @@ class ReservationServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        reservationService = new ReservationServiceImpl(reservationRepository, officeRepository, patientRepository);
+        reservationService = new ReservationServiceImpl(reservationRepository, officeRepository, patientRepository, emailSenderService);
     }
 
     @Test
@@ -105,7 +104,7 @@ class ReservationServiceImplTest {
     }
 
     @Test
-    void getReservationsFromTest() {
+    void getReservationsFromTest() throws JsonProcessingException {
         //given
         Date start = Date.valueOf(DATE);
         Date end = Date.valueOf(DATE.plusDays(2));
@@ -116,6 +115,7 @@ class ReservationServiceImplTest {
 
 
         Map<LocalDate, List<ReservationDto>> result = reservationService.getReservationFromTo(DATE, 2, 1L);
+        System.err.println(TestResource.objectMapper().writeValueAsString(result));
 
         verify(reservationRepository, times(1)).findAllByDateBetweenAndOffice(start,end,OFFICE);
         assertEquals(2, result.keySet().size());
