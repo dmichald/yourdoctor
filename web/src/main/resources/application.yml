@@ -1,0 +1,42 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:test
+    driver-class-name: org.h2.Driver
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: "yourdoctor.noreply@gmail.com"
+    password: "TwojDoktor1234"
+    protocol: smtp
+    properties.mail.smtp:
+      auth: true
+      starttls.enable: true
+      ssl.trust: smtp.gmail.com
+
+
+#  jpa:
+#    properties:
+#      hibernate:
+#       format_sql: true
+#      javax:
+#       persistence:
+#         schema-generation:
+#            scripts:
+#              action: create
+#             create-target: create.sql
+#              source: metadata
+
+
+ ##########JWT##########
+jwt:
+  expirationTime: 3600000
+  secret: 29t7syadgf87qtr92rgu8yofvdc8023tr2379rfvcusav82t92
+
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+
